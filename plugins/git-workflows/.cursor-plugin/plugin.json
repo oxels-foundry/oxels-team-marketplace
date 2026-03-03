@@ -9,5 +9,5 @@
   },
   "license": "MIT",
   "keywords": ["cursor", "plugin", "git", "github", "ci", "pr"],
-  "logo": "assets/logo.svg"
+  "logo": "assets/cursor.png"
 }

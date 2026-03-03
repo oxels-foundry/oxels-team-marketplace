@@ -5,7 +5,7 @@ description: Generate or update a repository README with startup instructions an
 
 # Update README
 
-Generate a comprehensive README by analyzing the repository's code, config files, and directory structure.
+Generate or update a comprehensive README by analyzing the repository's code, config files, and directory structure.
 
 ## Workflow
 

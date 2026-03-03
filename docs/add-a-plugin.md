@@ -27,7 +27,7 @@ Example manifest:
   "author": {
     "name": "Your Org"
   },
-  "logo": "assets/logo.svg"
+  "logo": "assets/cursor.png"
 }
 ```
 
@@ -41,7 +41,7 @@ Add only the components you need:
 - `commands/*.(md|mdc|markdown|txt)` (frontmatter recommended)
 - `hooks/hooks.json` and `scripts/*` for automation hooks
 - `mcp.json` for MCP server definitions
-- `assets/logo.svg` for marketplace display
+- `assets/cursor.png` for marketplace display
 
 ## 3. Register in marketplace manifest
 

@@ -19,10 +19,10 @@ These conventions ensure consistent, discoverable naming for all markdown files 
   Description: Role prefix (e.g., backend, frontend, code) and specialization suffix.
   Examples: backend-eng.md, code-reviewer.md, test-writer.md
 
-- Commands (`.cursor/commands/*.md`):
+- Skills (`.cursor/skills/*/SKILL.md`):
   Pattern: {action}-{target}.md
   Description: Action performed and its target, using kebab-case.
-  Examples: create-ticket.md, generate-types.md, update-status.md
+  Examples: create-ticket/SKILL.md, generate-types/SKILL.md, update-status/SKILL.md
 
 ## General Guidelines
 

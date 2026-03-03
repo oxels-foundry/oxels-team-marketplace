@@ -6,3 +6,4 @@ Advanced plugin for documentation workflows:
 - weekly review synthesis
 - markdown naming conventions
 - documentation writing subagent
+- Notion MCP connection

@@ -1,6 +1,6 @@
 # Cursor Trial Plugins
 
-Build and publish Cursor Marketplace plugins from a single repository.
+An example Team Marketplace that includes a set of starter plugins for Cursor.
 
 ## Included plugins
 
@@ -8,11 +8,9 @@ This repo currently ships five grouped plugins:
 
 - **git-workflows**: commit, PR, CI, merge conflict, and branch validation workflows
 - **documentation**: README updates, weekly review summaries, markdown naming, and docs writing
-- **pm**: Jira-oriented PM workflows with MCP config, ticket writing, and board summarization
+- **pm**: Ticket-oriented PM workflows with MCP config, ticket writing, and board summarization
 - **design**: wireframes, component design support, and mockup workflow
 - **testing-reliability**: Datadog dashboards, performance optimization, and testing agents
-
-Starter references are still available under `plugins/starter-simple` and `plugins/starter-advanced`.
 
 ## Repository structure
 

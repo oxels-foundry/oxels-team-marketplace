@@ -23,7 +23,7 @@
     {
       "name": "pm",
       "source": "pm",
-      "description": "PM workflows with Jira MCP integration, ticket writing, and board summarization"
+      "description": "PM workflows with MCP integrations, ticket writing, and board summarization"
     },
     {
       "name": "design",
