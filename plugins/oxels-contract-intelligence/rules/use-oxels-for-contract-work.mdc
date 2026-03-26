@@ -1,0 +1,11 @@
+---
+description: Use the Oxels MCP server and bundled Oxels skills for contract, agreement, amendment, renewal, liability, privacy, or portfolio questions.
+alwaysApply: false
+---
+
+When the task is about contracts, agreements, deal packages, amendments, renewals, liability, privacy, payment terms, or portfolio scans:
+
+- Prefer the Oxels MCP server and the bundled Oxels skills before answering from general knowledge.
+- Start with the narrowest Oxels scope you can establish.
+- Distinguish explicit structured facts from inferred conclusions.
+- Say whether the answer came from structured fields, retrieval snippets, or full-text review.

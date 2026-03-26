@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "oxels": {
+      "type": "http",
+      "url": "https://mcp.oxels.com/mcp"
+    }
+  }
+}
