@@ -1,35 +1,32 @@
-# Cursor Trial Plugins
+# Oxels Team Marketplace
 
-An example Team Marketplace that includes a set of starter plugins for Cursor.
+A Cursor Team Marketplace for Oxels plugins: rules, agent skills, and MCP configuration shipped as installable bundles.
+
+The marketplace manifest name is `oxels-plugins` (see `.cursor-plugin/marketplace.json`).
 
 ## Included plugins
 
-This repo currently ships five grouped plugins:
+| Plugin | Folder | Summary |
+|--------|--------|---------|
+| **Contract Intelligence** | `plugins/oxels-contract-intelligence` | MCP-backed contract analysis: ontology, effective terms, portfolio scans, provisioning taxonomy, and retrieval guidance for legal, accounting, and revenue operations work |
 
-- **git-workflows**: commit, PR, CI, merge conflict, and branch validation workflows
-- **documentation**: README updates, weekly review summaries, markdown naming, and docs writing
-- **pm**: Ticket-oriented PM workflows with MCP config, ticket writing, and board summarization
-- **design**: wireframes, component design support, and mockup workflow
-- **testing-reliability**: Datadog dashboards, performance optimization, and testing agents
+Add new plugins by creating a folder under `plugins/` and registering it in `.cursor-plugin/marketplace.json`. See `docs/add-a-plugin.md` for the full workflow.
 
 ## Repository structure
 
-- `.cursor-plugin/marketplace.json`: marketplace manifest and plugin registry
-- `plugins/<plugin-name>/.cursor-plugin/plugin.json`: per-plugin metadata
-- `plugins/<plugin-name>/rules`: rule files (`.mdc`)
-- `plugins/<plugin-name>/skills`: skill folders with `SKILL.md`
-- `plugins/<plugin-name>/agents`: subagent definitions
-- `plugins/<plugin-name>/mcp.json`: MCP server configuration for each plugin
+- `.cursor-plugin/marketplace.json` — marketplace manifest and plugin registry
+- `plugins/<plugin-slug>/.cursor-plugin/plugin.json` — per-plugin metadata
+- `plugins/<plugin-slug>/rules` — rule files (`.mdc`)
+- `plugins/<plugin-slug>/skills` — skill folders with `SKILL.md`
+- `plugins/<plugin-slug>/.mcp.json` — MCP server configuration (when the plugin needs Oxels or other servers)
 
 ## Validate changes
-
-Run:
 
 ```bash
 node scripts/validate-template.mjs
 ```
 
-This checks marketplace paths, plugin manifests, and required frontmatter in rule/skill/agent/command files.
+This checks marketplace paths, plugin manifests, and required frontmatter in rule, skill, agent, and command files.
 
 ## Submission checklist
 
