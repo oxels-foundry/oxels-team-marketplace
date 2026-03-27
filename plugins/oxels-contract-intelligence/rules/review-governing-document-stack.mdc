@@ -1,0 +1,20 @@
+---
+description: Review the full governing document stack before making Oxels-backed contract conclusions
+alwaysApply: false
+---
+
+# Review Governing Document Stack
+
+When a contract answer may depend on multiple documents, do not reason from the base agreement alone.
+
+Apply these rules:
+
+- Build the narrowest agreement set that can answer the question, then identify the operative document stack before drawing conclusions.
+- Review amendments, order forms, DPAs, SLAs, security paper, exhibits, and side terms whenever they may control the issue.
+- Treat amendment-aware review as mandatory for agreement-specific answers.
+- State where the operative position comes from when documents interact or override one another.
+- If the current stack is unclear, ask a short scoping question instead of assuming the base MSA controls.
+
+Example:
+
+- Do not answer a renewal, pricing, or termination question from the MSA alone if the order form or amendment chain may change timing, economics, or notice mechanics.

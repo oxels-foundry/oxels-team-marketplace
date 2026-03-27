@@ -1,0 +1,20 @@
+---
+description: Require an explicit user choice before writing Oxels workflow outputs to Notion
+alwaysApply: false
+---
+
+# Require Explicit Persistence Choice
+
+When an Oxels workflow could end in `Notion MCP` output, do not persist results unless the user explicitly asks for it or clearly confirms it.
+
+Apply these rules:
+
+- Default to delivering analysis in chat unless the user requested Notion, a page, workspace persistence, or an update to an existing Notion artifact.
+- If the output destination is unclear, ask once whether the user wants the result in chat or Notion before writing.
+- You may do Oxels analysis before that choice is made, but do not call `Notion MCP` until the user has chosen.
+- Treat Slack or other delivery channels as optional mirrors, not the system of record, unless the user says otherwise.
+- Keep the chat result and persisted result aligned; do not invent a larger artifact just because Notion is available.
+
+Example:
+
+- If the user asks for a renewal package but does not mention Notion, deliver the package in chat first or ask whether it should be written to Notion before persisting anything.

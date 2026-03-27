@@ -1,0 +1,20 @@
+---
+description: Verify field semantics and label evidence strength before making Oxels-backed contract claims
+alwaysApply: false
+---
+
+# Verify Oxels Evidence Before Claims
+
+When answering contract questions with `Oxels MCP`, do not jump straight from a fuzzy concept to a confident clause claim.
+
+Apply these rules:
+
+- For fuzzy concepts like `termination for convenience`, `liability cap`, `data residency`, or `price protection`, inspect the field model first with `retrieve_field_definitions` or `describe_fields`.
+- Use structured fields to scope and summarize, but do not treat a missing field as proof that the term is absent.
+- Escalate from fields to clause retrieval and then to full text when the conclusion is high-stakes, ambiguous, or interaction-heavy.
+- Label material conclusions as `field-derived`, `retrieval-supported`, or `full-text confirmed`.
+- Distinguish clearly between `confirmed from source`, `reasonable inference`, and `manual review required`.
+
+Example:
+
+- Before saying a contract has no renewal cap, first confirm whether the relevant renewal or pricing fields exist, then retrieve clause text or full agreement text if the issue is material.

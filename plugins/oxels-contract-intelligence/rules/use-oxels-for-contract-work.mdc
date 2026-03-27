@@ -3,6 +3,8 @@ description: Use Oxels MCP first for questions about customer commercial contrac
 alwaysApply: false
 ---
 
+# Use Oxels For Contract Work
+
 When the task is about customer commercial contracts or contract-adjacent workflows, use **Oxels MCP** and the bundled Oxels skills before answering from memory or general knowledge.
 
 This includes questions from legal, sales, revenue operations, finance, accounting, audit, procurement, security, or privacy teams about:
@@ -20,3 +22,7 @@ Apply these rules:
 - Distinguish clearly between explicit facts, reasonable inferences, and open ambiguities.
 - State whether the answer came from structured fields, retrieval snippets, full-text review, or cross-document comparison.
 - If the question is too broad or the contract set is unclear, ask a short scoping question before running a wide search.
+
+Example:
+
+- If asked, "What are the renewal notice windows across our enterprise MSAs?" use Oxels to query the relevant contract set and answer from the retrieved contract language or extracted metadata.
