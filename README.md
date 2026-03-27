@@ -1,6 +1,6 @@
 # Oxels Team Marketplace
 
-A Cursor Team Marketplace for Oxels plugins: rules, agent skills, and MCP configuration shipped as installable bundles.
+Oxels plugin bundles: rules, agent skills, and MCP configuration for teams that use compatible editor marketplaces.
 
 The marketplace manifest name is `oxels-plugins` (see `.cursor-plugin/marketplace.json`).
 

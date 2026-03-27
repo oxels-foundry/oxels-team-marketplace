@@ -185,14 +185,16 @@ Do not invent precedent. If support is thin, say so. Corpus-wide patterns and co
 
 Using only evidence gathered through **Oxels MCP** in Steps 1–5, assign both an `Overall Renewal Status` and an `Approval Posture` to every in-scope contract. If scoring requires a fact you have not yet retrieved (for example ACV, mechanism, or a missing date), resolve it with **Oxels MCP** before finalizing the score. **In Notion mode**, never infer facts from **Notion MCP** reads; **in Chat mode**, there is no Notion source—only **Oxels MCP** and the user’s messages.
 
+Use the organization’s own deal-size and approval bands when the user or internal policy defines them (for example “large” / “medium” ACV thresholds). Do not assume universal dollar cutoffs; if none are given, infer relative size only from the corpus and callouts in scoring prose, without inventing numeric thresholds.
+
 #### Overall Renewal Status
 
 Use the highest-severity applicable result:
 
 | Status | Assign when |
 | --- | --- |
-| `Critical` | Notice deadline has passed, notice deadline is `<= 14` days away, contract auto-terminates unless action is taken, or ACV is `>= $500K` with material non-standard terms |
-| `Elevated` | Notice deadline is `15-30` days away and action is required, ACV is `>= $250K` with meaningful deviations, or pricing / renewal economics require negotiation before renewal |
+| `Critical` | Notice deadline has passed, notice deadline is `<= 14` days away, contract auto-terminates unless action is taken, or ACV is in the organization’s **large-deal** band (per policy or user) with material non-standard terms |
+| `Elevated` | Notice deadline is `15-30` days away and action is required, ACV is in the organization’s **medium-deal-or-above** band (per policy or user) with meaningful deviations, or pricing / renewal economics require negotiation before renewal |
 | `Standard` | Auto-renewing on standard or near-standard terms with no immediate action required |
 | `Non-Auto-Renew / New Paper Required` | Source text confirms renewal requires new paper or a new order form |
 | `Auto-Terminates / Action Required` | Contract ends unless action is taken before term end |
@@ -203,7 +205,7 @@ Use the highest-severity applicable result:
 `Approval Posture` is the primary routing category. `Approval Required From` is a multi-select with the actual actors who need to act.
 
 - `Commercial Counsel / Legal Review`: clause-level drafting, amendment, interpretation, negotiation, customer paper, incomplete amendment chain, or source-quality review
-- `Commercial Approval`: ACV `>= $250K`, strategic or commercial decision, systemic deviation, or policy-level exception
+- `Commercial Approval`: ACV in the organization’s **medium-deal-or-above** band (per policy or user), strategic or commercial decision, systemic deviation, or policy-level exception
 - `Both Required`: high ACV plus clause work, major customer-paper deviation, or any situation requiring both commercial sign-off and legal execution
 - `Deal Desk / CPQ Coordination Needed`: renewal needs a new or revised order form, pricing change, or CPQ configuration
 - `Security / Privacy Specialist Review Needed`: custom security paper, non-standard DPA or residency obligations, or meaningful privacy-mode commitments
