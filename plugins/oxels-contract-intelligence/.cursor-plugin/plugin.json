@@ -16,7 +16,7 @@
     "agent-skills",
     "legalops"
   ],
-  "logo": "./assets/logo.svg",
+  "logo": "./assets/logo.png",
   "skills": "./skills",
   "rules": "./rules",
   "mcpServers": "./mcp.json"
