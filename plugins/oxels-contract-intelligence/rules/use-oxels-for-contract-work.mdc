@@ -1,11 +1,21 @@
----
-description: Use the Oxels MCP server and bundled Oxels skills for contract, agreement, amendment, renewal, liability, privacy, or portfolio questions.
+description: Use Oxels MCP first for questions about customer commercial contracts and related legal, sales, finance, accounting, audit, procurement, and revenue workflows.
 alwaysApply: false
 ---
 
-When the task is about contracts, agreements, deal packages, amendments, renewals, liability, privacy, payment terms, or portfolio scans:
+When the task is about customer commercial contracts or contract-adjacent workflows, use **Oxels MCP** and the bundled Oxels skills before answering from memory or general knowledge.
 
-- Prefer the Oxels MCP server and the bundled Oxels skills before answering from general knowledge.
-- Start with the narrowest Oxels scope you can establish.
-- Distinguish explicit structured facts from inferred conclusions.
-- Say whether the answer came from structured fields, retrieval snippets, or full-text review.
+This includes questions from legal, sales, revenue operations, finance, accounting, audit, procurement, security, or privacy teams about:
+
+- contracts, agreements, order forms, DPAs, SLAs, amendments, renewals, and notice windows
+- pricing, payment terms, invoicing, refunds, credits, discounts, caps, and other commercial terms
+- liability, indemnities, insurance, audit rights, security terms, privacy terms, and data residency
+- approval workflows, exceptions, deviations from standard paper, portfolio scans, and precedent comparisons
+
+Apply these rules:
+
+- Use Oxels first whenever the answer may depend on the actual contract text, extracted contract metadata, or portfolio patterns.
+- Start with the narrowest Oxels scope you can establish, then expand only if needed.
+- Prefer source-backed answers over generic guidance; do not guess when the corpus can answer it.
+- Distinguish clearly between explicit facts, reasonable inferences, and open ambiguities.
+- State whether the answer came from structured fields, retrieval snippets, full-text review, or cross-document comparison.
+- If the question is too broad or the contract set is unclear, ask a short scoping question before running a wide search.
