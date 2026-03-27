@@ -55,9 +55,9 @@ Resolve **before** any **Notion MCP** writes. **Oxels MCP** Steps 1–6 are the 
 
 ### How to decide
 
-1. **Notion mode** — The user explicitly asks to write to Notion, update the Renewal Approval Engine / cohort databases, persist rows, use **Notion MCP**, or equivalent.
+1. **Notion mode** — The user explicitly asks to write to Notion, update the **Renewal Approval Engine** / cohort databases, persist rows, use **Notion MCP**, or equivalent.
 2. **Chat mode** — The user explicitly asks for results **in chat**, in this thread, markdown only, no Notion, or says not to use Notion.
-3. **Unspecified** — The user did **not** say either way. **Ask once**, early (before Step 1 if practical; otherwise immediately after Step 0 and before starting heavy **Oxels MCP** work): *"Should I write these results to your Notion workspace (Renewal Approval Engine), or deliver the full renewal package here in chat?"*  
+3. **Unspecified** — The user did **not** say either way. **Ask once**, early (before Step 1 if practical; otherwise immediately after Step 0 and before starting heavy **Oxels MCP** work): *"Should I write these results to your Notion workspace (**Renewal Approval Engine**), or deliver the full renewal package here in chat?"*  
    - If they defer ("analyze first"), complete Steps 1–6, then **ask again before Step 7**.  
    - **Never** call **Notion MCP** without a clear **Notion mode** choice.
 
@@ -300,12 +300,7 @@ Use this only in **Notion mode** (after the user has confirmed workspace writes 
 
 ### Canonical destination
 
-Using the Notion MCP write all output to the existing page:
-
-- `Page Title`: `Renewal Approval Engine`
-- `Page URL`: `https://www.notion.so/oxels/Renewal-Approval-Engine-32c7ac0913f780858714e360877b5382`
-
-Do not recreate the page.
+Persist everything under the Notion page titled **`Renewal Approval Engine`**. Find it (Notion search by title, or a URL/ID from the user). If it does not exist, **ask once** whether to create it; if the user confirms, create **`Renewal Approval Engine`** under a parent they specify (if they did not give one, **ask once** for the parent URL/ID), then add the master databases from [Workspace structure](#workspace-structure) if they are missing. If the hub already exists, only create databases or run pages that are still missing—do not create a second hub or duplicate master databases.
 
 ### Notion policy (**Notion MCP**)
 
