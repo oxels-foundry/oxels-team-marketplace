@@ -11,7 +11,7 @@
   },
   "plugins": [
     {
-      "name": "oxels-contract-intelligence",
+      "name": "oxels",
       "source": "oxels-contract-intelligence",
       "description": "Query and triage contracts for legal, accouting and rev-ops work."
     }
