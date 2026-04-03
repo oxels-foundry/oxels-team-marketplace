@@ -53,7 +53,7 @@ Separate the answer into three lanes:
 ### Regulatory Requirements
 [Applicable laws, policies, and approval points]
 
-### Contractual Commitments From Oxels
+### Contractual commitments (corpus)
 [Customer or vendor commitments that affect the initiative]
 
 ### Risk Areas
