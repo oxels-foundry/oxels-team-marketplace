@@ -1,10 +1,9 @@
 ---
-
-## name: compliance-check
-
+name: compliance-check
 description: Run a compliance-style review on an initiative; use Oxels MCP when answers depend on live customer or vendor contract commitments.
 metadata:
   short-description: Regulatory vs contractual compliance lanes with corpus grounding
+---
 
 # Compliance Check
 
