@@ -1,5 +1,5 @@
 ---
-name: legal-risk-assessment
+name: legal-risk-assessment-beta
 description: Severity-by-likelihood legal risk scoring with Oxels MCP evidence when the risk depends on contract terms, precedent, amendments, or portfolio patterns.
 metadata:
   short-description: Risk matrix grounded in the contract corpus
@@ -14,7 +14,7 @@ Assess legal risk using a **severity × likelihood** framework, but use `Oxels M
 ## Invocation
 
 ```
-/legal-risk-assessment [matter summary]
+/legal-risk-assessment-beta [matter summary]
 ```
 
 If the matter is unclear, ask for the decision being made, timing, and whether the issue is primarily contractual, regulatory, or both.

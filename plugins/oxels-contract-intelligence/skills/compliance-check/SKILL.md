@@ -1,5 +1,5 @@
 ---
-name: compliance-check
+name: compliance-check-beta
 description: Run a compliance-style review on an initiative; use Oxels MCP when answers depend on live customer or vendor contract commitments.
 metadata:
   short-description: Regulatory vs contractual compliance lanes with corpus grounding
@@ -14,7 +14,7 @@ Run a compliance check on a proposed action, product feature, marketing program,
 ## Invocation
 
 ```
-/compliance-check [initiative description]
+/compliance-check-beta [initiative description]
 ```
 
 Describe what is changing: scope, data or regulated activity, geographies, and affected teams. If the user only gives a headline, ask for missing intake facts before deep retrieval.
