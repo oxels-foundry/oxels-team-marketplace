@@ -1,5 +1,5 @@
 ---
-name: triage-nda-beta
+name: oxels-triage-nda-beta
 description: NDA pre-screen with a corpus-derived playbook baseline, GREEN/YELLOW/RED routing, and Oxels MCP for counterparty history and amendment-aware conflicts.
 metadata:
   short-description: NDA triage vs corpus-derived playbook
@@ -14,7 +14,7 @@ Triage an incoming NDA by **deriving a typical playbook from your organizationâ€
 ## Invocation
 
 ```
-/triage-nda-beta
+/oxels-triage-nda-beta
 ```
 
 Accept the NDA as a file, URL, or pasted text. If the user has not provided the document, ask for it before classifying.
