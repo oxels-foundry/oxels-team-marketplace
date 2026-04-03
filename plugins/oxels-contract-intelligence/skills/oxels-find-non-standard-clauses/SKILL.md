@@ -1,5 +1,5 @@
 ---
-name: find-non-standard-clauses
+name: oxels-find-non-standard-clauses
 description: Benchmarks a contract against similar agreements to show which clauses are standard, unusual, or worth escalating.
 metadata:
   short-description: Oxels-backed contract benchmarking
@@ -83,6 +83,12 @@ Comparator dimensions may include:
 - document type and paper source
 - renewal versus new business
 
+When comparator dimensions depend on counterparty shape rather than clean agreement metadata:
+
+- use `get_organization include_thermographic_data=true` to inspect likely peers
+- use `retrieve_similar_organizations` to discover fuzzy near-peers
+- use `list_organizations` for exact org filters such as employee band, revenue band, ownership type, and headquarters location
+
 If the user says a `$5M` enterprise contract should be compared to similar enterprise contracts, preserve that framing throughout the analysis.
 
 ### Step 2: Inspect the field model first
@@ -154,6 +160,12 @@ Construct both:
 - `Near-peer baseline`: the narrower comparator set that best matches the target
 
 Use `search_agreements` first to define the bounded population. Then read value-bearing fields and clause evidence to form peer cohorts. Because the current Oxels search surface does not directly filter by ACV band or segment, do peer bucketing as an explicit analysis step after scoping.
+
+When the near-peer baseline is driven by buyer profile rather than exact deal metadata:
+
+- use `retrieve_similar_organizations` to propose likely peer counterparties
+- hydrate those organizations with `get_organization` or `get_organization_deals`
+- then use their agreements as the narrower comparator set
 
 If needed, ask for missing peer definitions rather than guessing.
 

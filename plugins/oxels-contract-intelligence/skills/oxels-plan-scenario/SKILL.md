@@ -1,5 +1,5 @@
 ---
-name: plan-scenario
+name: oxels-plan-scenario
 description: Tests a proposed business action against the contract corpus to show what the agreements allow, where the risk sits, and what to do next.
 metadata:
   short-description: Oxels-backed scenario planning

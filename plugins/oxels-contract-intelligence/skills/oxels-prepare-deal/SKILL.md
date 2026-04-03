@@ -1,5 +1,5 @@
 ---
-name: prepare-deal
+name: oxels-prepare-deal
 description: Helps you prepare for a deal by identifying the negotiation stage, likely customer pressure points, relevant precedent, and recommended fallback positions.
 metadata:
   short-description: Deal prep and negotiation workflow
@@ -43,7 +43,7 @@ Apply these throughout:
 
 - Start with the current deal stage before broad research.
 - Ask for missing critical inputs instead of bluffing.
-- Use outside knowledge and web research to form hypotheses; use Oxels evidence to support recommendations.
+- Use Oxels org tools first when the counterparty is resolvable; use outside knowledge and web research to fill gaps, not to replace corpus-grounded company context.
 - Go to source text for material conclusions. Missing extracted fields do not prove a term is absent.
 - Review order forms, amendments, DPAs, SLAs, and side letters when the issue may live outside the MSA.
 - Never analyze T4C in isolation. Pair it with refund, payment, survival, and wind-down consequences.
@@ -96,6 +96,8 @@ Use the lighter path first when information is sparse. Escalate to a deeper path
 
 Identify the company and infer the likely negotiating profile using:
 
+- `list_organizations` to resolve the counterparty
+- `get_organization include_thermographic_data=true` when the counterparty is in Oxels
 - model knowledge
 - web search
 - user-supplied context
@@ -109,6 +111,14 @@ Aim to establish:
 - scale signals: enterprise size, technical org size, deployment complexity, regulatory sensitivity
 - likely pressure points given the profile
 
+Prefer Oxels-backed thermographic data when available:
+
+- headquarters / geography
+- employee band
+- revenue band
+- ownership type
+- raw industry / subsector labels
+
 If profile inference is weak or conflicting, say so explicitly and ask a short follow-up instead of over-claiming.
 
 ### Step 3: Build the comparable set
@@ -120,6 +130,12 @@ Use the strongest available path:
 3. broader corpus matches by buyer profile, deal shape, and issue pattern
 
 When possible, prefer a bounded comparable set over broad retrieval. Use structured Oxels search first to identify likely relevant deals, then use retrieval for clause evidence.
+
+When the comparable set is driven by counterparty similarity rather than an exact named peer list:
+
+- use `retrieve_similar_organizations` to discover likely analogs
+- then hydrate the returned organization IDs with `get_organization` or `get_organization_deals`
+- treat the retrieval output as exploratory candidate discovery, not final proof that the peer set is complete
 
 For each comparable, capture:
 

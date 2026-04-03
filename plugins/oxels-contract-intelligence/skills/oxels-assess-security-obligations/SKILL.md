@@ -1,5 +1,5 @@
 ---
-name: assess-security-obligations
+name: oxels-assess-security-obligations
 description: Extracts and analyzes security, privacy, SLA, data residency, transfer, and incident-response obligations from the contract corpus. Use when the security team asks about contractual security posture, data controls, sub-processors, audit rights, deletion duties, or compliance-relevant terms.
 metadata:
   short-description: Security, privacy, and SLA obligations analysis

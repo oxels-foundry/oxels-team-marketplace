@@ -1,5 +1,5 @@
 ---
-name: outline-deal-history
+name: oxels-outline-deal-history
 description: Reconstructs an agreement's legal amendment history in chat using Oxels MCP. Use when the user asks for amendment lineage, deal history, how the paper changed over time, what the agreement said before later amendments, or a chronological overview of amendments and addenda.
 metadata:
   short-description: Amendment-chain timeline and operative position
