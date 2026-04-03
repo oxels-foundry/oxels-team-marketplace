@@ -1,5 +1,5 @@
 ---
-name: legal-response
+name: legal-response-beta
 description: Generate recurring legal inquiry responses with Oxels MCP grounding when the answer depends on live agreement terms, status, or precedent.
 metadata:
   short-description: Legal response drafts grounded in the contract corpus
@@ -14,7 +14,7 @@ Generate a response to a recurring legal inquiry, but use `Oxels MCP` before dra
 ## Invocation
 
 ```
-/legal-response [inquiry-type]
+/legal-response-beta [inquiry-type]
 ```
 
 If no inquiry type is provided, ask the user what type of response they need and show available categories.
