@@ -139,8 +139,8 @@ Examples:
 
 When the cohort begins at the organization layer:
 
-- use `list_organizations` for exact filters such as employee band, revenue band, ownership type, relationship type, or headquarters location
-- use `get_organization include_thermographic_data=true` to inspect representative counterparties before deciding the final cohort
+- use `list_organizations include_firmographic_data=true` for exact filters such as employee band, revenue band, ownership type, relationship type, or headquarters location when the returned org context will materially shape the segmentation
+- use `get_organization include_firmographic_data=true` to inspect representative counterparties before deciding the final cohort
 - use `retrieve_similar_organizations` when the user is describing a fuzzy customer archetype or wants comparable counterparties rather than exact filter buckets
 
 State the scope before presenting conclusions.
@@ -160,7 +160,7 @@ Typical archetype dimensions:
 
 Use field-backed dimensions first. Then add clause or override nuance only where it materially changes the archetype.
 
-If the business question is really about counterparty shape, include organization thermographics in the lens where available:
+If the business question is really about counterparty shape, include organization firmographics in the lens where available:
 
 - employee band
 - revenue band

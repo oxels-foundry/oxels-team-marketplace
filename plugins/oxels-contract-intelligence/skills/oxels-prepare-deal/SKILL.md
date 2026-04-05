@@ -97,7 +97,7 @@ Use the lighter path first when information is sparse. Escalate to a deeper path
 Identify the company and infer the likely negotiating profile using:
 
 - `list_organizations` to resolve the counterparty
-- `get_organization include_thermographic_data=true` when the counterparty is in Oxels
+- `get_organization include_firmographic_data=true` when the counterparty is in Oxels
 - model knowledge
 - web search
 - user-supplied context
@@ -111,7 +111,7 @@ Aim to establish:
 - scale signals: enterprise size, technical org size, deployment complexity, regulatory sensitivity
 - likely pressure points given the profile
 
-Prefer Oxels-backed thermographic data when available:
+Prefer Oxels-backed firmographic data when available:
 
 - headquarters / geography
 - employee band

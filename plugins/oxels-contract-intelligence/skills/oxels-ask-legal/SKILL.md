@@ -62,11 +62,13 @@ Apply these throughout:
 - Use organization tools when the legal question depends on counterparty profile, fuzzy peer selection, or comparable counterparties.
 - Run a real Q&A loop before retrieval when the question is underspecified, especially when sales does not name the customer, deal, or intended audience.
 - Ask for missing critical context instead of bluffing.
+- For named-customer, agreement-specific questions, answer the active paper first. Only widen into peer precedent if it changes the recommendation or the user explicitly asks what is standard.
 - Go to source text for material conclusions. Missing fields do not prove absence.
 - Review order forms, amendments, DPAs, SLAs, exhibits, and side paper when they may control the answer.
 - Treat amendment-aware review as mandatory for agreement-specific answers.
 - Do not treat ranked retrieval across broad batches as definitive absence proof.
 - Distinguish clearly between `confirmed from source`, `reasonable inference`, and `open ambiguity`.
+- High-risk clause families such as termination, pricing mechanics, liability, privacy, and security require stronger evidence than ordinary commercial terms. If field coverage is thin or the issue is interaction-heavy, escalate to full-text confirmation instead of smoothing over the gap.
 - Quote the controlling language for material conclusions whenever available.
 - Advise, do not merely extract.
 - Give the user the answer first, then the evidence and caveats.
@@ -128,7 +130,7 @@ This determines what can be answered from structured fields and what requires re
 Scope the smallest set that can answer the question:
 
 - use `list_organizations` to resolve the counterparty or exact organization cohort when the question starts at the customer level
-- use `get_organization include_thermographic_data=true` when counterparty profile affects the legal answer or the precedent set
+- use `get_organization include_firmographic_data=true` when counterparty profile affects the legal answer or the precedent set
 - use `retrieve_similar_organizations` when the question depends on comparable counterparties or a fuzzy buyer profile rather than exact org filters
 - use `search_agreements` to build the in-scope agreement set
 - use `get_deal` when the user identifies a specific deal
@@ -145,12 +147,14 @@ For agreement-specific questions, identify the governing stack across:
 - security paper
 - incorporated exhibits or side terms
 
+For privacy, security, audit, breach, residency, or subprocessor issues, treat the DPA / SLA / security stack as first-class controlling paper, not as optional side reading.
+
 If `retrieve_similar_organizations` is used, treat it as exploratory candidate discovery and hydrate returned organization IDs with `get_organization` or `get_organization_deals` before drawing precedent conclusions.
 
 When the question is really a customer-shape or cohort question, prefer this loop:
 
 1. resolve the customer with `list_organizations`
-2. hydrate with `get_organization include_thermographic_data=true`
+2. hydrate with `get_organization include_firmographic_data=true`
 3. discover likely peers with `retrieve_similar_organizations` if needed
 4. scope the peer agreements with `search_agreements` or `get_organization_deals`
 5. compare clause positions or structured terms across that bounded set
@@ -164,6 +168,8 @@ Use `Oxels MCP` in this order:
 1. `get_agreement_fields` for direct structured reads
 2. `retrieve_agreement_chunks` for candidate clause evidence
 3. `get_agreement_text` when the issue is high-stakes, ambiguous, interaction-heavy, or needs final confirmation
+
+If `retrieve_field_definitions` or `describe_fields` shows weak coverage for the concept, do not stop at structured fields alone for a material conclusion.
 
 For material conclusions, capture:
 
@@ -195,6 +201,7 @@ Separate:
 2. `What standard paper appears to say`
 3. `What precedent-backed exceptions exist`
 4. `What remains thin or ambiguous`
+5. `What commercial response is actually recommended`
 
 Do not collapse `precedent exists` into `approved policy`.
 

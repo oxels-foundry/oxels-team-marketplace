@@ -85,7 +85,7 @@ Comparator dimensions may include:
 
 When comparator dimensions depend on counterparty shape rather than clean agreement metadata:
 
-- use `get_organization include_thermographic_data=true` to inspect likely peers
+- use `get_organization include_firmographic_data=true` to inspect likely peers
 - use `retrieve_similar_organizations` to discover fuzzy near-peers
 - use `list_organizations` for exact org filters such as employee band, revenue band, ownership type, and headquarters location
 

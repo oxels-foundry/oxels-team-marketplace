@@ -79,6 +79,7 @@ Use this when the question is about what is typical, standard, or previously acc
 - Active agreement: [If relevant]
 - Standard paper: [What baseline paper appears to say]
 - Precedent-backed exceptions: [What the corpus shows has been done]
+- Recommended commercial response: [What sales should actually propose, hold, or escalate]
 - Thin spots: [What is still uncertain]
 
 ## Evidence
