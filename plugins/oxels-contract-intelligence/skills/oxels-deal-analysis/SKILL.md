@@ -1,5 +1,5 @@
 ---
-name: deal-analysis
+name: oxels-deal-analysis
 description: Explores how deals are changing over time so teams can spot pricing trends, concession patterns, and standardization opportunities.
 metadata:
   short-description: Oxels-backed deal mix and archetype analysis
@@ -51,6 +51,7 @@ Apply these throughout:
 - Use `retrieve_field_definitions` and `describe_fields` before assuming the field model.
 - Missing extracted fields do not prove a term or deal feature is absent.
 - Build the bounded agreement set before making broad claims about trends.
+- Use exact organization filters first when the cohort is structurally defined; use fuzzy organization retrieval only when the cohort definition is thematic or similarity-based.
 - Separate structured facts, retrieval-backed findings, full-text-confirmed findings, and inference.
 - Use clause retrieval or full text when a high-impact shift depends on override text or nuanced language.
 - Review order forms, amendments, and side paper when the operative commercial structure may live outside one document.
@@ -136,6 +137,14 @@ Examples:
 - a product-specific or packaging-specific cohort
 - a named segment, region, or customer class
 
+When the cohort begins at the organization layer:
+
+- use `list_organizations include_firmographic_data=true` for exact filters such as employee band, revenue band, ownership type, relationship type, or headquarters location when the returned org context will materially shape the segmentation
+- use `get_organization include_firmographic_data=true` to inspect representative counterparties before deciding the final cohort
+- use `retrieve_similar_organizations` when the user is describing a fuzzy customer archetype or wants comparable counterparties rather than exact filter buckets
+
+Treat `retrieve_similar_organizations` as its own fuzzy-discovery path. When you use it, write a descriptive company query from whatever the user actually knows, such as industry, operating profile, scale, or sophistication, rather than relying on fixed schema attributes.
+
 State the scope before presenting conclusions.
 
 If the question is about when deals entered the corpus, use the metadata time filters on `search_agreements` rather than extracted contract dates.
@@ -152,6 +161,14 @@ Typical archetype dimensions:
 - `Negotiation posture`: standard paper, lightly negotiated, custom-concession-heavy, manual-review cluster
 
 Use field-backed dimensions first. Then add clause or override nuance only where it materially changes the archetype.
+
+If the business question is really about counterparty shape, include organization firmographics in the lens where available:
+
+- employee band
+- revenue band
+- ownership type
+- geography
+- raw industry / subsector labels
 
 ### Step 5: Measure the mix shift
 

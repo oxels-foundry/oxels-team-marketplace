@@ -1,5 +1,5 @@
 ---
-name: run-renewals
+name: oxels-run-renewals
 description: Builds a renewal brief by finding upcoming renewals, confirming the operative terms, and surfacing risk, approvals, and next steps.
 metadata:
   short-description: Renewal approval and strategy workflow
