@@ -151,11 +151,17 @@ For privacy, security, audit, breach, residency, or subprocessor issues, treat t
 
 If `retrieve_similar_organizations` is used, treat it as exploratory candidate discovery and hydrate returned organization IDs with `get_organization` or `get_organization_deals` before drawing precedent conclusions.
 
+Treat exact organization lookup and fuzzy peer discovery as separate choices. Use `list_organizations` and `get_organization` for exact entity resolution. Use `retrieve_similar_organizations` when the real task is to discover likely comparable counterparties from a descriptive free-text query.
+
+When using the free-text query path, enrich the query with the best available counterparty-shape signals, such as company type, industry, likely scale, procurement sophistication, or regulatory profile. Do not treat similarity as a fixed schema-slot exercise.
+
+Keep organization similarity focused on counterparty shape, not clause asks. If the prompt also includes a term ask like `net 60`, use the org-like part of the prompt to discover peer organizations first, then use agreement search on the returned peer set for the issue itself.
+
 When the question is really a customer-shape or cohort question, prefer this loop:
 
 1. resolve the customer with `list_organizations`
-2. hydrate with `get_organization include_firmographic_data=true`
-3. discover likely peers with `retrieve_similar_organizations` if needed
+2. if resolved, hydrate with `get_organization include_firmographic_data=true`
+3. if the task is fuzzy peer discovery, call `retrieve_similar_organizations` with a crafted free-text query
 4. scope the peer agreements with `search_agreements` or `get_organization_deals`
 5. compare clause positions or structured terms across that bounded set
 
@@ -190,7 +196,7 @@ Be especially careful with interacting issues such as:
 When the question asks what is standard, acceptable, or previously done:
 
 1. Use `search_agreements` to define the bounded comparable set.
-   If the comparable set depends on counterparty shape, start with `get_organization` and optionally `retrieve_similar_organizations` to identify the right peer organizations first.
+   If the comparable set depends on counterparty shape, use `get_organization` for an exact resolved org or `retrieve_similar_organizations` for a crafted free-text peer query.
 2. Use `get_agreement_fields` to read the relevant field families across that set.
 3. Use `retrieve_agreement_chunks` for clause examples and nuance.
 4. Escalate to `get_agreement_text` on representative or high-stakes examples.

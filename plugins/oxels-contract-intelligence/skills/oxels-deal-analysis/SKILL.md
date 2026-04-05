@@ -143,6 +143,8 @@ When the cohort begins at the organization layer:
 - use `get_organization include_firmographic_data=true` to inspect representative counterparties before deciding the final cohort
 - use `retrieve_similar_organizations` when the user is describing a fuzzy customer archetype or wants comparable counterparties rather than exact filter buckets
 
+Treat `retrieve_similar_organizations` as its own fuzzy-discovery path. When you use it, write a descriptive company query from whatever the user actually knows, such as industry, operating profile, scale, or sophistication, rather than relying on fixed schema attributes.
+
 State the scope before presenting conclusions.
 
 If the question is about when deals entered the corpus, use the metadata time filters on `search_agreements` rather than extracted contract dates.

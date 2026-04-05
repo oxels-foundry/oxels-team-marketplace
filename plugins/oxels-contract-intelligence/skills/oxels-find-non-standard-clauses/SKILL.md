@@ -89,6 +89,8 @@ When comparator dimensions depend on counterparty shape rather than clean agreem
 - use `retrieve_similar_organizations` to discover fuzzy near-peers
 - use `list_organizations` for exact org filters such as employee band, revenue band, ownership type, and headquarters location
 
+Treat `retrieve_similar_organizations` as a separate fuzzy-peer path, not as a fallback from failed exact resolution. When you use it, write the query as a business description of the company rather than as a fixed set of schema attributes.
+
 If the user says a `$5M` enterprise contract should be compared to similar enterprise contracts, preserve that framing throughout the analysis.
 
 ### Step 2: Inspect the field model first
@@ -166,6 +168,8 @@ When the near-peer baseline is driven by buyer profile rather than exact deal me
 - use `retrieve_similar_organizations` to propose likely peer counterparties
 - hydrate those organizations with `get_organization` or `get_organization_deals`
 - then use their agreements as the narrower comparator set
+
+Keep the issue-specific ask separate from the org-similarity step. For example, if the prompt says a new enterprise software buyer wants `net 60`, use the org-like part to retrieve likely peers first, then benchmark `payment_mechanics` across the agreements for that peer set.
 
 If needed, ask for missing peer definitions rather than guessing.
 

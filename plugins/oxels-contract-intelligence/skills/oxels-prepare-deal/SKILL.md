@@ -137,6 +137,8 @@ When the comparable set is driven by counterparty similarity rather than an exac
 - then hydrate the returned organization IDs with `get_organization` or `get_organization_deals`
 - treat the retrieval output as exploratory candidate discovery, not final proof that the peer set is complete
 
+Treat this as a distinct fuzzy-peer workflow, not as a fallback from failed exact entity lookup. When you use `retrieve_similar_organizations`, write a descriptive company query from whatever the user knows, such as company type, industry, likely scale, or procurement profile, rather than trying to fill fixed firmographic slots.
+
 For each comparable, capture:
 
 - why it is comparable
@@ -144,6 +146,11 @@ For each comparable, capture:
 - whether it is standard paper, customer paper, or heavily negotiated
 
 If the user says, for example, `We're going to sign a deal with a large fintech company`, the goal is to quickly identify the most relevant analogs in the corpus for a company of that shape before predicting likely asks.
+
+If the user gives a prompt like `We're signing a new deal with a large AI platform buyer, and they want net 60`, split the task:
+
+- use the descriptive company profile to discover likely peer organizations
+- then use those peer organizations to analyze the issue ask, here `payment terms`, at the agreement layer
 
 If precedent support is thin, say so.
 
