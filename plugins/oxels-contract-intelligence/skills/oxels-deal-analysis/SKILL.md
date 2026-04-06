@@ -139,7 +139,7 @@ Examples:
 
 When the cohort begins at the organization layer:
 
-- use `list_organizations include_firmographic_data=true` for exact filters such as employee band, revenue band, ownership type, relationship type, or headquarters location when the returned org context will materially shape the segmentation
+- use `list_organizations` for exact filters such as employee band, revenue band, ownership type, relationship type, or headquarters location when the returned org context will materially shape the segmentation
 - use `get_organization include_firmographic_data=true` to inspect representative counterparties before deciding the final cohort
 - use `retrieve_similar_organizations` when the user is describing a fuzzy customer archetype or wants comparable counterparties rather than exact filter buckets
 
@@ -173,6 +173,8 @@ If the business question is really about counterparty shape, include organizatio
 ### Step 5: Measure the mix shift
 
 Compare the selected cohorts against the chosen frame.
+
+Use `aggregate_agreements` for the first-pass measurement layer whenever the question is fundamentally about counts, top values, grouped averages, or sorted rankings. Then use `get_agreement_fields` and text retrieval to explain the agreements driving the shift.
 
 At minimum, evaluate:
 
