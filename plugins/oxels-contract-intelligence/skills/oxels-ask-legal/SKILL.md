@@ -130,10 +130,10 @@ This determines what can be answered from structured fields and what requires re
 Scope the smallest set that can answer the question:
 
 - use `list_organizations` to resolve the counterparty or exact organization cohort when the question starts at the customer level
-- use `list_organizations include_firmographic_data=true` when org profile or exact company buckets are part of the scoping decision
+- use `list_organizations include_firmographic_data=true` when org profile or exact company buckets are part of the scoping decision; available filters include employee band, revenue band, ownership type, relationship type, headquarters location, industry sector, sub-industry, and founding year range
 - use `get_organization include_firmographic_data=true` when counterparty profile affects the legal answer or the precedent set
 - use `retrieve_similar_organizations` when the question depends on comparable counterparties or a fuzzy buyer profile rather than exact org filters
-- use `search_agreements` to build the in-scope agreement set
+- use `search_agreements` to build the in-scope agreement set; when org profile should constrain the agreement scope, pass filters (`employee_count_or_band`, `annual_revenue_band`, `ownership_type`, `hq_location`, `industry_sector`, `sub_industry`, `year_founded_from`, `year_founded_to`) directly rather than doing a separate org lookup first
 - use `get_deal` when the user identifies a specific deal
 - use `get_agreement_fields` for targeted field reads
 - use `get_amendment_chain` when the operative answer may be changed by amendments

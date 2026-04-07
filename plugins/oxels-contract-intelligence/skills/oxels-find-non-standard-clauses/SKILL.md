@@ -85,7 +85,7 @@ Comparator dimensions may include:
 
 When comparator dimensions depend on counterparty shape rather than clean agreement metadata:
 
-- use `list_organizations include_firmographic_data=true` for exact org filters such as employee band, revenue band, ownership type, and headquarters location
+- use `list_organizations include_firmographic_data=true` for exact org filters such as employee band, revenue band, ownership type, headquarters location, industry sector, sub-industry, and founding year range
 - use `get_organization include_firmographic_data=true` to inspect likely peers in more detail once you have candidate organizations
 - use `retrieve_similar_organizations` to discover fuzzy near-peers
 
@@ -161,7 +161,7 @@ Construct both:
 - `Global corpus baseline`: the broader in-scope population
 - `Near-peer baseline`: the narrower comparator set that best matches the target
 
-Use `search_agreements` first to define the bounded population. Then read value-bearing fields and clause evidence to form peer cohorts. Because the current Oxels search surface does not directly filter by ACV band or segment, do peer bucketing as an explicit analysis step after scoping.
+Use `search_agreements` first to define the bounded population. It accepts org profile filters directly (`employee_count_or_band`, `annual_revenue_band`, `ownership_type`, `hq_location`, `industry_sector`, `sub_industry`, `year_founded_from`, `year_founded_to`), so use those to narrow the peer set when the comparator frame is org-profile-based. For dimensions not covered by org profile filters — such as ACV band or deal segment — do peer bucketing as an explicit analysis step after scoping.
 
 When the near-peer baseline is driven by buyer profile rather than exact deal metadata:
 
