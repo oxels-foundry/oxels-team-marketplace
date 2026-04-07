@@ -85,9 +85,9 @@ Comparator dimensions may include:
 
 When comparator dimensions depend on counterparty shape rather than clean agreement metadata:
 
-- use `get_organization include_firmographic_data=true` to inspect likely peers
+- use `list_organizations include_firmographic_data=true` for exact org filters such as employee band, revenue band, ownership type, and headquarters location
+- use `get_organization include_firmographic_data=true` to inspect likely peers in more detail once you have candidate organizations
 - use `retrieve_similar_organizations` to discover fuzzy near-peers
-- use `list_organizations` for exact org filters such as employee band, revenue band, ownership type, and headquarters location
 
 Treat `retrieve_similar_organizations` as a separate fuzzy-peer path, not as a fallback from failed exact resolution. When you use it, write the query as a business description of the company rather than as a fixed set of schema attributes.
 

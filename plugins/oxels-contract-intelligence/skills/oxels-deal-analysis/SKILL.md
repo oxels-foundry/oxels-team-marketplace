@@ -174,6 +174,8 @@ If the business question is really about counterparty shape, include organizatio
 
 Compare the selected cohorts against the chosen frame.
 
+Use `aggregate_agreements` for the first-pass measurement layer whenever the question is fundamentally about counts, top values, grouped averages, or sorted rankings. Then use `get_agreement_fields` and text retrieval to explain the agreements driving the shift.
+
 At minimum, evaluate:
 
 - count shift by archetype

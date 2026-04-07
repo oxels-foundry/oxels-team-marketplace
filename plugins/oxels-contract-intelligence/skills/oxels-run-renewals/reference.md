@@ -47,6 +47,12 @@ Apply this policy throughout Steps 1-6:
 5. Quote source language for all material conclusions.
 6. Separate citation-grade findings from manual-review items.
 
+Current MCP notes:
+
+- use `list_renewals` for the cohort scan and rely on `expiry_field_name` to understand which date drove the result
+- use `sort_by=days_until_expiry` for urgency ordering and `sort_by=total_amount` for largest-renewal ordering
+- use `renewal_type` and `renewal_notification_days` for structured renewal signals
+
 If a value is unclear, do not default immediately. Instead:
 
 1. Attempt clause retrieval on the relevant concept.

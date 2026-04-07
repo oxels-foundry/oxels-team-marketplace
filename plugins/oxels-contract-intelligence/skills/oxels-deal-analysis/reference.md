@@ -47,15 +47,17 @@ Start with the simplest useful grouping. Expand only when the question needs mor
 
 ### Core archetypes
 
-| Archetype | Typical signals | Use when |
-| --- | --- | --- |
-| `Seat-heavy standard` | mostly fixed or recurring commercial structure, limited variable usage economics, few meaningful credits or service attachments, light negotiation posture | the portfolio is mostly straightforward recurring commercial terms |
-| `Usage-based hybrid` | baseline recurring structure plus a meaningful commitment, allowance, or variable-usage component | the business is mixing commit and variable usage models |
-| `Usage-led / consumption-heavy` | commitments, allowances, overage economics, or true-up behavior drive more of the commercial story than flat recurring pricing | the user wants to know whether the business is shifting toward consumption pricing |
-| `Discount-led enterprise` | materially reduced effective rate, meaningful credits or commercial givebacks, large deal values, negotiation-heavy posture | the question is whether larger deals are driving price erosion or strategic discounting |
-| `Ops-heavy / services-attached` | onboarding, implementation, support, services, milestones, or side obligations materially change the deal shape | operational burden and deployment complexity matter more than pure price |
-| `Custom-concession-heavy` | multiple non-standard commercial overrides, credits, bespoke economics, or repeated exception language | the user wants to identify where standardization is breaking down |
-| `Manual-review cluster` | thin field coverage, ambiguity, side-paper dependence, or text-heavy overrides | the data cannot safely support a stronger label without deeper review |
+
+| Archetype                       | Typical signals                                                                                                                                            | Use when                                                                                |
+| ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `Seat-heavy standard`           | mostly fixed or recurring commercial structure, limited variable usage economics, few meaningful credits or service attachments, light negotiation posture | the portfolio is mostly straightforward recurring commercial terms                      |
+| `Usage-based hybrid`            | baseline recurring structure plus a meaningful commitment, allowance, or variable-usage component                                                          | the business is mixing commit and variable usage models                                 |
+| `Usage-led / consumption-heavy` | commitments, allowances, overage economics, or true-up behavior drive more of the commercial story than flat recurring pricing                             | the user wants to know whether the business is shifting toward consumption pricing      |
+| `Discount-led enterprise`       | materially reduced effective rate, meaningful credits or commercial givebacks, large deal values, negotiation-heavy posture                                | the question is whether larger deals are driving price erosion or strategic discounting |
+| `Ops-heavy / services-attached` | onboarding, implementation, support, services, milestones, or side obligations materially change the deal shape                                            | operational burden and deployment complexity matter more than pure price                |
+| `Custom-concession-heavy`       | multiple non-standard commercial overrides, credits, bespoke economics, or repeated exception language                                                     | the user wants to identify where standardization is breaking down                       |
+| `Manual-review cluster`         | thin field coverage, ambiguity, side-paper dependence, or text-heavy overrides                                                                             | the data cannot safely support a stronger label without deeper review                   |
+
 
 ### Optional sub-archetype lenses
 
@@ -71,33 +73,37 @@ Use only if they materially improve the answer:
 
 Use the field model as the first pass. Discover the concrete fields dynamically in the current ontology, then validate important conclusions with text.
 
-| Lens | Typical Oxels signals | Notes |
-| --- | --- | --- |
-| `Pricing level and value` | total contract value, effective rate signals, line-item mix, or other commercial value indicators | value and rate signals are useful but may not capture the full economic structure alone |
-| `Discount posture` | discount indicators, credits, rebates, price holds, or other concession signals | credits and discounts may indicate different concession styles |
-| `Usage structure` | commitments, included allowances, variable usage economics, true-up behavior, or overage mechanics | this is the core lens for usage-based shift questions |
-| `Billing mechanics` | billing cadence, payment timing, invoicing rules, or true-up mechanics | use when the commercial shift also changes invoice or settlement behavior |
-| `Operational complexity` | support or services attachments, onboarding or implementation obligations, milestones, deployment timing, or side obligations | combine with side-paper review if obligations look broader than line items |
-| `Negotiation posture` | override text, amendment layering, customer paper, exception frequency, or retrieval evidence | this lens is often mixed structured-plus-text rather than purely field-backed |
+
+| Lens                      | Typical Oxels signals                                                                                                         | Notes                                                                                   |
+| ------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `Pricing level and value` | total contract value, effective rate signals, line-item mix, or other commercial value indicators                             | value and rate signals are useful but may not capture the full economic structure alone |
+| `Discount posture`        | discount indicators, credits, rebates, price holds, or other concession signals                                               | credits and discounts may indicate different concession styles                          |
+| `Usage structure`         | commitments, included allowances, variable usage economics, true-up behavior, or overage mechanics                            | this is the core lens for usage-based shift questions                                   |
+| `Billing mechanics`       | billing cadence, payment timing, invoicing rules, or true-up mechanics                                                        | use when the commercial shift also changes invoice or settlement behavior               |
+| `Operational complexity`  | support or services attachments, onboarding or implementation obligations, milestones, deployment timing, or side obligations | combine with side-paper review if obligations look broader than line items              |
+| `Negotiation posture`     | override text, amendment layering, customer paper, exception frequency, or retrieval evidence                                 | this lens is often mixed structured-plus-text rather than purely field-backed           |
+
 
 ## Retrieval and evidence workflow
 
 Apply this ladder for each material claim.
 
 1. `retrieve_field_definitions`
-   - use when starting from fuzzy language like `usage-based`, `discounting`, `credits`, `premium support`, or `operational complexity`
+  - use when starting from fuzzy language like `usage-based`, `discounting`, `credits`, `premium support`, or `operational complexity`
 2. `describe_fields`
-   - use when the current ontology needs to be translated into exact field names, categories, document-type coverage, or examples
+  - use when the current ontology needs to be translated into exact field names, categories, document-type coverage, or examples
 3. `search_agreements`
-   - use to build the bounded cohort first
-4. `get_agreement_fields`
-   - use for normalized fact reads across the cohort
-5. `retrieve_agreement_chunks`
-   - use for override-heavy, concession-heavy, or text-first concepts
-6. `get_agreement_text`
-   - use when chunk evidence is ambiguous, high-impact, or likely to drive a GTM action
-7. `get_amendment_chain`
-   - use when a shift may actually be caused by amended economics or changed paper
+  - use to build the bounded cohort first
+4. `aggregate_agreements`
+  - use for grouped counts, top values, averages, min/max, and sorted trend summaries once the cohort is bounded
+5. `get_agreement_fields`
+  - use for normalized fact reads when you need per-agreement values rather than grouped summaries
+6. `retrieve_agreement_chunks`
+  - use for override-heavy, concession-heavy, or text-first concepts
+7. `get_agreement_text`
+  - use when chunk evidence is ambiguous, high-impact, or likely to drive a GTM action
+8. `get_amendment_chain`
+  - use when a shift may actually be caused by amended economics or changed paper
 
 ## Missing-field escalation
 
@@ -128,6 +134,11 @@ Assign when:
 - the archetype share changed in a visible way across the chosen frame
 - the shift appears in count, value, or both
 - the direction remains stable after checking obvious cohort biases
+
+Preferred measurement pattern:
+
+- use `aggregate_agreements` for count shifts, top values, grouped averages, and sorted rankings
+- then use `get_agreement_fields` or clause retrieval only for the agreements that explain the shift
 
 ### `Directional shift`
 
@@ -161,22 +172,26 @@ Assign when:
 
 Use this when moving from description to recommendation.
 
-| Opportunity type | Assign when |
-| --- | --- |
-| `Standardize now` | the pattern repeats often enough to justify default packaging, pricing, or workflow changes |
-| `Codify fallback` | the concession is not standard, but appears repeatedly enough to warrant an approved fallback posture |
-| `Monitor only` | the pattern is emerging, but still too early or too thin to standardize |
-| `Escalate for policy` | the pattern has strategic pricing, legal, or operational implications that need owner review |
-| `Needs data cleanup` | the business question is right, but current extraction quality limits safe standardization |
+
+| Opportunity type      | Assign when                                                                                           |
+| --------------------- | ----------------------------------------------------------------------------------------------------- |
+| `Standardize now`     | the pattern repeats often enough to justify default packaging, pricing, or workflow changes           |
+| `Codify fallback`     | the concession is not standard, but appears repeatedly enough to warrant an approved fallback posture |
+| `Monitor only`        | the pattern is emerging, but still too early or too thin to standardize                               |
+| `Escalate for policy` | the pattern has strategic pricing, legal, or operational implications that need owner review          |
+| `Needs data cleanup`  | the business question is right, but current extraction quality limits safe standardization            |
+
 
 ## Confidence levels
 
-| Level | Meaning |
-| --- | --- |
-| `High` | field-backed and/or text-confirmed, with the cohort and comparison frame clearly defined |
-| `Medium` | strong directional support, but some nuance depends on partial coverage or representative examples |
-| `Low` | thin fields, sparse text validation, or approximate comparison frame limit confidence |
-| `Manual Review` | human review is required before relying on the conclusion |
+
+| Level           | Meaning                                                                                            |
+| --------------- | -------------------------------------------------------------------------------------------------- |
+| `High`          | field-backed and/or text-confirmed, with the cohort and comparison frame clearly defined           |
+| `Medium`        | strong directional support, but some nuance depends on partial coverage or representative examples |
+| `Low`           | thin fields, sparse text validation, or approximate comparison frame limit confidence              |
+| `Manual Review` | human review is required before relying on the conclusion                                          |
+
 
 ## Chat output template
 
@@ -200,8 +215,10 @@ Use this in `Chat mode`.
 
 Recommended columns:
 
+
 | Archetype | Prior cohort | Current cohort | Change | Value note | Confidence |
-| --- | --- | --- | --- | --- | --- |
+| --------- | ------------ | -------------- | ------ | ---------- | ---------- |
+
 
 ### 4. Pricing, concessions, and complexity signals
 
@@ -226,8 +243,10 @@ For each Tier 1 shift:
 
 Recommended columns:
 
+
 | Pattern | Recommendation | Why now | Owner | Confidence |
-| --- | --- | --- | --- | --- |
+| ------- | -------------- | ------- | ----- | ---------- |
+
 
 ### 7. Recommended next steps
 
@@ -300,13 +319,15 @@ One row per recommendation, escalation, or follow-up question.
 
 Use supported chart views only when they sharpen the readout.
 
-| Question type | Suggested view |
-| --- | --- |
-| share by archetype in one cohort | `donut` grouped by `Archetype` |
-| change in archetype counts across time windows | `column` or `bar` grouped by `Archetype` |
-| trend across multiple periods | `line` grouped by period |
-| top-line total such as total deals or share of usage-led deals | `number` |
-| combined summary page | `dashboard` |
+
+| Question type                                                  | Suggested view                           |
+| -------------------------------------------------------------- | ---------------------------------------- |
+| share by archetype in one cohort                               | `donut` grouped by `Archetype`           |
+| change in archetype counts across time windows                 | `column` or `bar` grouped by `Archetype` |
+| trend across multiple periods                                  | `line` grouped by period                 |
+| top-line total such as total deals or share of usage-led deals | `number`                                 |
+| combined summary page                                          | `dashboard`                              |
+
 
 Readability rules:
 

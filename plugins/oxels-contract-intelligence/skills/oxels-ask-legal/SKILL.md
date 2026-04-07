@@ -130,6 +130,7 @@ This determines what can be answered from structured fields and what requires re
 Scope the smallest set that can answer the question:
 
 - use `list_organizations` to resolve the counterparty or exact organization cohort when the question starts at the customer level
+- use `list_organizations include_firmographic_data=true` when org profile or exact company buckets are part of the scoping decision
 - use `get_organization include_firmographic_data=true` when counterparty profile affects the legal answer or the precedent set
 - use `retrieve_similar_organizations` when the question depends on comparable counterparties or a fuzzy buyer profile rather than exact org filters
 - use `search_agreements` to build the in-scope agreement set
@@ -151,7 +152,7 @@ For privacy, security, audit, breach, residency, or subprocessor issues, treat t
 
 If `retrieve_similar_organizations` is used, treat it as exploratory candidate discovery and hydrate returned organization IDs with `get_organization` or `get_organization_deals` before drawing precedent conclusions.
 
-Treat exact organization lookup and fuzzy peer discovery as separate choices. Use `list_organizations` and `get_organization` for exact entity resolution. Use `retrieve_similar_organizations` when the real task is to discover likely comparable counterparties from a descriptive free-text query.
+Treat exact organization lookup and fuzzy peer discovery as separate choices. Use `list_organizations` for exact entity resolution, including `include_firmographic_data=true` when the richer org context matters immediately. Use `get_organization` for single-record hydration. Use `retrieve_similar_organizations` when the real task is to discover likely comparable counterparties from a descriptive free-text query.
 
 When using the free-text query path, enrich the query with the best available counterparty-shape signals, such as company type, industry, likely scale, procurement sophistication, or regulatory profile. Do not treat similarity as a fixed schema-slot exercise.
 
@@ -160,7 +161,7 @@ Keep organization similarity focused on counterparty shape, not clause asks. If 
 When the question is really a customer-shape or cohort question, prefer this loop:
 
 1. resolve the customer with `list_organizations`
-2. if resolved, hydrate with `get_organization include_firmographic_data=true`
+2. if needed, rerun with `list_organizations include_firmographic_data=true` or hydrate with `get_organization include_firmographic_data=true`
 3. if the task is fuzzy peer discovery, call `retrieve_similar_organizations` with a crafted free-text query
 4. scope the peer agreements with `search_agreements` or `get_organization_deals`
 5. compare clause positions or structured terms across that bounded set

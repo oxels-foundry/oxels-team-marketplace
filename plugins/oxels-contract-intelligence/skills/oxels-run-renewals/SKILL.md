@@ -61,6 +61,13 @@ Determine the renewal mechanism from source text and amendment-aware review:
 - `Explicit New Agreement Required`
 - `Auto-Terminates Unless Action Is Taken`
 
+Use `list_renewals` as the default cohort scan for this step. Prefer:
+
+- `sort_by=days_until_expiry sort_direction=asc` for urgency-first review
+- `sort_by=total_amount sort_direction=desc` when triaging the largest renewals first
+
+Treat `renewal_type` and `renewal_notification_days` as the operative structured renewal fields.
+
 For auto-renewing contracts, determine whether the notice window is already passed, closing soon, or still open. If date data is ambiguous, say so and route for follow-up instead of guessing.
 
 ### 3. Build the operative position with `Oxels MCP`

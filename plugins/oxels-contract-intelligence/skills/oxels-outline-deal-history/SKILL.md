@@ -36,8 +36,6 @@ Assume the user wants a concise overview they can act on, not a document dump.
 
 Treat `get_amendment_chain` as the core tool for this workflow.
 
-Do not confuse legal lineage with file revision history. `get_agreement_versions` is file-version history, not the legal amendment chain, and should not be used unless the user explicitly asks about upload or revision history.
-
 This skill is `chat-only`. Do not call `Notion MCP`.
 
 ## Supported requests
