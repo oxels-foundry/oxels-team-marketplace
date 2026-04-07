@@ -139,9 +139,11 @@ Examples:
 
 When the cohort begins at the organization layer:
 
-- use `list_organizations include_firmographic_data=true` for exact filters such as employee band, revenue band, ownership type, relationship type, or headquarters location when the returned org context will materially shape the segmentation
+- use `list_organizations include_firmographic_data=true` for exact filters such as employee band, revenue band, ownership type, relationship type, headquarters location, industry sector, sub-industry, or founding year range when the returned org context will materially shape the segmentation
 - use `get_organization include_firmographic_data=true` to inspect representative counterparties before deciding the final cohort
 - use `retrieve_similar_organizations` when the user is describing a fuzzy customer archetype or wants comparable counterparties rather than exact filter buckets
+
+When the cohort is primarily agreement-scoped but org profile should constrain it, pass org profile filters (`employee_count_or_band`, `annual_revenue_band`, `ownership_type`, `hq_location`, `industry_sector`, `sub_industry`, `year_founded_from`, `year_founded_to`) directly to `search_agreements` or the `scope` of `aggregate_agreements` rather than doing a separate org lookup first.
 
 Treat `retrieve_similar_organizations` as its own fuzzy-discovery path. When you use it, write a descriptive company query from whatever the user actually knows, such as industry, operating profile, scale, or sophistication, rather than relying on fixed schema attributes.
 
@@ -175,6 +177,8 @@ If the business question is really about counterparty shape, include organizatio
 Compare the selected cohorts against the chosen frame.
 
 Use `aggregate_agreements` for the first-pass measurement layer whenever the question is fundamentally about counts, top values, grouped averages, or sorted rankings. Then use `get_agreement_fields` and text retrieval to explain the agreements driving the shift.
+
+When grouping by organization profile dimensions, use fields like `ownership_type`, `employee_count_or_band`, `annual_revenue_band`, or `industry_sector` in `dimensions`. Do not use `year_founded` as a dimension — it produces sparse buckets; use `year_founded_from` and `year_founded_to` in the scope filters instead to define a founding-year cohort.
 
 At minimum, evaluate:
 

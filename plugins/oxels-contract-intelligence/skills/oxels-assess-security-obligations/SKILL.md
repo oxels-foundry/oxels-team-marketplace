@@ -153,7 +153,7 @@ Capture normalized facts such as:
 - which agreement or document type carries the value
 - whether the signal appears complete, sparse, or likely override-sensitive
 
-For portfolio scans, use structured reads to build the first-pass matrix before turning to text.
+For portfolio scans, use `aggregate_agreements` to build the first-pass measurement layer before drilling into individual agreements. For example, group by a security or privacy field to see how many agreements carry a particular obligation value, which document types contribute, or where gaps cluster. Then use `get_agreement_fields` and text retrieval to explain the specific agreements driving the pattern.
 
 ### Step 5: Fill gaps with clause evidence and full text
 

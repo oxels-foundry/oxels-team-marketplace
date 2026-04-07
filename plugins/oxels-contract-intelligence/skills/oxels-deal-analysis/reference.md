@@ -94,8 +94,13 @@ Apply this ladder for each material claim.
   - use when the current ontology needs to be translated into exact field names, categories, document-type coverage, or examples
 3. `search_agreements`
   - use to build the bounded cohort first
+  - accepts org profile filters directly: `employee_count_or_band`, `annual_revenue_band`, `ownership_type`, `hq_location`, `industry_sector`, `sub_industry`, `year_founded_from`, `year_founded_to`
+  - use `date_field` (e.g. `effective_date`) for contract timing analysis
 4. `aggregate_agreements`
   - use for grouped counts, top values, averages, min/max, and sorted trend summaries once the cohort is bounded
+  - `scope` accepts the same org profile filters as `search_agreements`
+  - `dimensions` supports org profile fields: `ownership_type`, `employee_count_or_band`, `annual_revenue_band`, `industry_sector`
+  - do not use `year_founded` as a dimension; use `year_founded_from`/`year_founded_to` in scope instead
 5. `get_agreement_fields`
   - use for normalized fact reads when you need per-agreement values rather than grouped summaries
 6. `retrieve_agreement_chunks`
