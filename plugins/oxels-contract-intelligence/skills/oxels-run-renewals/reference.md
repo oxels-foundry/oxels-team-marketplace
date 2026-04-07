@@ -51,7 +51,7 @@ Current MCP notes:
 
 - use `list_renewals` for the cohort scan and rely on `expiry_field_name` to understand which date drove the result
 - use `sort_by=days_until_expiry` for urgency ordering and `sort_by=total_amount` for largest-renewal ordering
-- use `renewal_type` and `renewal_notification_days` for structured renewal signals
+- use `renewal_type` and `notice_days` for structured renewal signals from `list_renewals`; the underlying extracted field is `renewal_notification_days` — use that name with `get_agreement_fields` or `retrieve_field_definitions`
 
 If a value is unclear, do not default immediately. Instead:
 

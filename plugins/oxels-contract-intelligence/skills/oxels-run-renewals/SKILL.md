@@ -66,7 +66,7 @@ Use `list_renewals` as the default cohort scan for this step. Prefer:
 - `sort_by=days_until_expiry sort_direction=asc` for urgency-first review
 - `sort_by=total_amount sort_direction=desc` when triaging the largest renewals first
 
-Treat `renewal_type` and `renewal_notification_days` as the operative structured renewal fields.
+Treat `renewal_type` and `notice_days` as the operative structured renewal fields returned by `list_renewals`. Note that `notice_days` is sourced from the extracted field `renewal_notification_days`; use that field name when calling `get_agreement_fields` or `retrieve_field_definitions` directly.
 
 For auto-renewing contracts, determine whether the notice window is already passed, closing soon, or still open. If date data is ambiguous, say so and route for follow-up instead of guessing.
 

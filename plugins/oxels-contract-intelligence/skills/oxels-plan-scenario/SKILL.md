@@ -144,6 +144,8 @@ Examples:
 - agreements within a renewal or notice window
 - agreements of specific document types
 
+When the scenario depends on renewal timing, use `list_renewals` to identify agreements approaching expiration within the relevant horizon. This is more efficient than manually filtering `search_agreements` by end-date fields, because `list_renewals` automatically resolves the earliest line-item end date per agreement and surfaces which extracted date field drove the result. Use `sort_by=days_until_expiry` for urgency-first ordering or scope with `horizon_days` to match the scenario window.
+
 State the scope you used before presenting conclusions.
 
 ### Step 4: Build the operative contractual position
@@ -170,6 +172,8 @@ Do not just quote isolated clauses. State the current operative position and whe
 ### Step 5: Test the scenario against the contracts
 
 Use **Oxels MCP** to answer the scenario-specific questions against the bounded corpus.
+
+When the scenario question is fundamentally about portfolio-wide impact — such as how many agreements block the action, how many require notice, or how the affected set breaks down by type or segment — use `aggregate_agreements` for the first-pass measurement layer. Its `scope` accepts the same filters as `search_agreements`, including org profile filters, so it can mirror the bounded corpus built in Step 3 exactly. Then use `get_agreement_fields` and text retrieval to explain the specific agreements driving the result.
 
 For each material finding, capture:
 

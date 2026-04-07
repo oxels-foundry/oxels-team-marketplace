@@ -163,6 +163,8 @@ Construct both:
 
 Use `search_agreements` first to define the bounded population. It accepts org profile filters directly (`employee_count_or_band`, `annual_revenue_band`, `ownership_type`, `hq_location`, `industry_sector`, `sub_industry`, `year_founded_from`, `year_founded_to`), so use those to narrow the peer set when the comparator frame is org-profile-based. For dimensions not covered by org profile filters — such as ACV band or deal segment — do peer bucketing as an explicit analysis step after scoping.
 
+Use `aggregate_agreements` to measure baseline frequency for each provision family across the global corpus and the near-peer set. For example, group by a relevant extracted field to see how common a particular clause value is across the population before concluding whether the target is standard or exceptional.
+
 When the near-peer baseline is driven by buyer profile rather than exact deal metadata:
 
 - use `retrieve_similar_organizations` to propose likely peer counterparties

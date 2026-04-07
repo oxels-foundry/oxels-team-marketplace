@@ -61,15 +61,19 @@ Apply this ladder for each material concept.
    - use when exact field names, categories, document-type coverage, or examples are needed
 3. `search_agreements`
    - use to build the bounded population first
-4. `get_deal` or `get_organization_deals`
+4. `aggregate_agreements`
+   - use for portfolio scans to measure obligation distribution, gap frequency, or domain coverage across the bounded set before drilling into individual agreements
+   - `scope` accepts the same org profile filters as `search_agreements`
+   - `dimensions` supports extracted field names and org profile fields like `ownership_type`, `employee_count_or_band`, `annual_revenue_band`, `industry_sector`
+5. `get_deal` or `get_organization_deals`
    - use when the relevant unit is a commercial package or one customer relationship rather than one isolated agreement
-5. `get_agreement_fields`
+6. `get_agreement_fields`
    - use for normalized terms and known signals
-6. `retrieve_agreement_chunks`
+7. `retrieve_agreement_chunks`
    - use for clause-heavy, override-heavy, or text-first concepts
-7. `get_agreement_text`
+8. `get_agreement_text`
    - use when chunk evidence is ambiguous, interaction-heavy, or high-stakes
-8. `get_amendment_chain`
+9. `get_amendment_chain`
    - use when the operative position may have changed over time
 
 ## Missing-field escalation
