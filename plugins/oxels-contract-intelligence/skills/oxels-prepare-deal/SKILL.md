@@ -97,6 +97,7 @@ Use the lighter path first when information is sparse. Escalate to a deeper path
 Identify the company and infer the likely negotiating profile using:
 
 - `list_organizations` to resolve the counterparty
+- `list_organizations include_firmographic_data=true` when firmographic context is needed during initial cohorting or customer-shape review
 - `get_organization include_firmographic_data=true` when the counterparty is in Oxels
 - model knowledge
 - web search
