@@ -1,23 +1,26 @@
 #!/usr/bin/env bash
 #
-# Oxels Contract Intelligence - skills installer
+# Oxels Contract Intelligence - Cursor plugin installer
 #
-# Installs Oxels Contract Intelligence skills into ~/.agents/skills
-# for teams that cannot install the plugin via a marketplace.
+# Installs the Oxels Contract Intelligence plugin as a local Cursor plugin
+# at ~/.cursor/plugins/local/oxels-contract-intelligence. Delivers the same
+# contents as installing via the Cursor marketplace: skills, rules, MCP
+# server config, and assets.
 #
 # Usage:
 #   curl -sSL https://mcp.oxels.com/install | bash
 #
 # Env overrides:
-#   OXELS_SKILLS_DIR   Destination directory (default: ~/.agents/skills)
-#   OXELS_BRANCH       Branch to install from (default: main)
+#   OXELS_PLUGINS_DIR   Cursor local plugins dir (default: ~/.cursor/plugins/local)
+#   OXELS_BRANCH        Branch to install from  (default: main)
 #
 set -euo pipefail
 
 REPO="oxels-foundry/oxels-team-marketplace"
 BRANCH="${OXELS_BRANCH:-main}"
 PLUGIN="oxels-contract-intelligence"
-DEST="${OXELS_SKILLS_DIR:-$HOME/.agents/skills}"
+PLUGINS_DIR="${OXELS_PLUGINS_DIR:-$HOME/.cursor/plugins/local}"
+DEST="$PLUGINS_DIR/$PLUGIN"
 
 log() { printf '%s\n' "$*"; }
 err() { printf 'Error: %s\n' "$*" >&2; }
@@ -25,8 +28,8 @@ err() { printf 'Error: %s\n' "$*" >&2; }
 command -v curl >/dev/null 2>&1 || { err "curl is required"; exit 1; }
 command -v tar  >/dev/null 2>&1 || { err "tar is required";  exit 1; }
 
-log "Installing Oxels skills to $DEST"
-mkdir -p "$DEST"
+log "Installing Oxels Contract Intelligence plugin to $DEST"
+mkdir -p "$PLUGINS_DIR"
 
 TMPDIR="$(mktemp -d)"
 trap 'rm -rf "$TMPDIR"' EXIT
@@ -38,22 +41,19 @@ curl -fsSL "$ARCHIVE_URL" -o "$TMPDIR/archive.tar.gz"
 log "Extracting..."
 tar -xzf "$TMPDIR/archive.tar.gz" -C "$TMPDIR"
 
-SRC="$TMPDIR/oxels-team-marketplace-${BRANCH}/plugins/${PLUGIN}/skills"
+SRC="$TMPDIR/oxels-team-marketplace-${BRANCH}/plugins/${PLUGIN}"
 if [ ! -d "$SRC" ]; then
-  err "Skills directory not found in archive: $SRC"
+  err "Plugin directory not found in archive: $SRC"
   exit 1
 fi
 
-count=0
-for skill in "$SRC"/*/; do
-  [ -d "$skill" ] || continue
-  name="$(basename "$skill")"
-  log "  installing: $name"
-  rm -rf "$DEST/$name"
-  cp -R "$skill" "$DEST/$name"
-  count=$((count + 1))
-done
+log "Installing plugin files..."
+rm -rf "$DEST"
+cp -R "$SRC" "$DEST"
 
 log ""
-log "Done. Installed $count skill(s) to $DEST"
-log "Restart Cursor to load the new skills."
+log "Done. Plugin installed at $DEST"
+log "Contents:"
+ls -1 "$DEST" | sed 's/^/  /'
+log ""
+log "Restart Cursor to load the plugin."
