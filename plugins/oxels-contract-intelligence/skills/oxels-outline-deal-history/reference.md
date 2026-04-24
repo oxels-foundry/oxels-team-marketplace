@@ -46,6 +46,15 @@ Use this markdown shape unless the user asks for something narrower.
 - Practical effect:
 - Evidence status:
 
+<!--
+  Include the section below ONLY if Step 4 (governing stack conflict scan) found a genuine conflict.
+  If no genuine conflict was found, omit this section entirely — do not add a placeholder or "none found" line.
+-->
+
+## Clauses Resolved by Precedence
+- [Term or concept]: [Document A] (type, precedence basis) says "[X]" — [Document B] says "[Y]" — [Document A/B] controls because [it carries the higher amendment priority / the order-of-precedence clause places it above the other document / it contains explicit override language in Section X] — Practical effect: [what this means operatively]
+- [Term where precedence is unclear]: [Doc A] says "[X]" — [Doc B] says "[Y]" — Controlling document unclear: [reason, e.g. no order-of-precedence clause found] — Manual review required
+
 ## Current operative position
 - What appears to control now:
 - Key takeaways:
@@ -76,6 +85,50 @@ For issue-tracking, each timeline step should answer:
 - what the new document changed for that issue
 - whether the change looks additive, corrective, or overriding
 - what the issue appears to mean now
+
+## Conflict detection
+
+Always run the governing-stack scan (Step 4). The `Clauses Resolved by Precedence` section is conditional on finding a real conflict — omit it entirely when none is found.
+
+### What counts as a genuine conflict
+
+A genuine conflict exists when two documents in the governing stack define the same obligation or right in materially different ways and at least one of them is operative (not merely recited as background). Examples:
+
+- ORDER_FORM says Net 90; MSA says Net 60 for the same payment obligation
+- Base agreement caps liability at 12 months of fees; an amendment sets a fixed dollar cap
+- MSA requires 30 days' termination notice; an addendum reduces it to 14 days
+
+Do not flag as a conflict:
+
+- complementary language where each document covers a different dimension of the same topic (e.g., MSA sets general invoicing process; ORDER_FORM sets the specific fee amounts)
+- expected document-type differentiation where the more specific instrument clearly governs
+- structural variation in wording that does not change the operative obligation or right
+
+### How to check
+
+Run `retrieve_agreement_chunks` with all governing-stack agreement IDs. Focus queries on commercially sensitive terms listed in Step 4. Verify both sides of a suspected conflict from source text before surfacing it.
+
+### How to present a conflict
+
+For each genuine conflict:
+
+1. state the term or concept in plain language
+2. quote or precisely paraphrase what each document says, with document type and section where available
+3. state which document controls and on what basis — use plain language in the output, not internal field names:
+   - for amendment-chain conflicts: the amendment with the higher priority ranking controls (rank 1 outranks rank 2, and so on); express this as "the controlling amendment carries a higher priority" or similar
+   - for document-type conflicts: the stack's order-of-precedence clause governs (e.g., order form terms take precedence over the MSA)
+   - when explicit override language exists in the source text: quote or paraphrase it directly
+4. state the practical difference — what it means operatively for the reader
+
+### When the controlling document is unclear
+
+Flag as `Controlling document unclear — manual review required` when:
+
+- no order-of-precedence clause has been confirmed from source
+- `precedence_rank` is absent or tied across conflicting amendments
+- the scope of the later document is ambiguous about whether it was intended to amend the conflicting term
+
+Do not silently pick a winner. Only `precedence_rank`, a confirmed order-of-precedence clause, or explicit override text in the source resolves a conflict definitively.
 
 ## Edge cases
 
@@ -151,3 +204,4 @@ Avoid:
 - ontology-specific field names as the main user-facing explanation
 - claiming a side document is part of the amendment chain unless the data or text supports that relationship
 - treating upload history as the same thing as legal history
+

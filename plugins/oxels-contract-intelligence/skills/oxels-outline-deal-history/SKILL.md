@@ -64,6 +64,7 @@ Apply these throughout:
 - Distinguish `confirmed from source`, `retrieval-supported`, and `open ambiguity`.
 - Advise, do not merely extract.
 - Keep the result in chat. Do not write or persist anywhere else.
+- Never surface internal technical names in the output — this includes tool names, database field names, agreement IDs, deal IDs, or any other implementation artifact. Translate everything into plain language for the reader.
 
 ## Workflow
 
@@ -96,8 +97,8 @@ Use `get_amendment_chain` on any agreement ID in the chain.
 From the result, identify:
 
 - the `base agreement`
-- each later `amendment`, `addendum`, or other chain step in chronological order
-- the `composed current view` where the latest amendment wins for each changed field
+- each later `amendment`, `addendum`, or other chain step ordered by `precedence_rank` (rank 1 takes precedence over rank 2, rank 2 over rank 3, and so on)
+- the `composed current view` where the lowest `precedence_rank` value wins for each changed field
 
 If the result shows no amendments, say so explicitly and deliver a short base-agreement history instead of implying there was a chain.
 
@@ -123,7 +124,29 @@ Prefer concept-level categories such as:
 
 Avoid hardcoding ontology-specific field names into the narrative unless the field name itself is necessary to avoid confusion.
 
-### Step 4: Verify material steps with source text
+### Step 4: Scan the governing stack for clause conflicts
+
+Always run this step. Run `retrieve_agreement_chunks` scoped to all agreement IDs in the governing stack — ORDER_FORM, MSA, SLA, DPA, and any amendments or addenda.
+
+Focus queries on terms that commonly conflict across document types:
+
+- payment terms and invoicing periods
+- pricing, fee rates, and rate protections
+- contract term length and renewal mechanics
+- termination rights and notice periods
+- liability caps and indemnification scope
+- data processing and security obligations
+- governing law and dispute resolution forum
+
+A genuine conflict exists when two documents define the same obligation or right in materially different ways. Do not flag:
+
+- complementary language where each document covers a different dimension of the same topic
+- document-type differences where the more specific instrument clearly governs (e.g., detailed SLA uptime vs. general MSA support obligation)
+- structural variation that does not change the operative right or obligation
+
+If a genuine conflict is found, verify both sides from source text before surfacing it. If no genuine conflict is found, do not include the `Clauses Resolved by Precedence` section in the output at all — not as an empty section, not with a "no conflicts" note, and not with a "for completeness" listing of non-conflicts. Only genuine conflicts appear in that section. A non-conflict does not belong in the output under any label.
+
+### Step 5: Verify material steps with source text
 
 When a change materially affects economics, timing, obligations, rights, or risk:
 
@@ -139,7 +162,7 @@ For material conclusions, capture:
 
 Do not pretend that a structured delta fully explains the legal effect when the text still matters.
 
-### Step 5: Explain continuity and override logic
+### Step 6: Explain continuity and override logic
 
 For the timeline to be useful, explain not just what changed but how the documents interact:
 
@@ -150,7 +173,7 @@ For the timeline to be useful, explain not just what changed but how the documen
 
 If the stack is incomplete, say what is missing and what should be reviewed next.
 
-### Step 6: Deliver the history in chat
+### Step 7: Deliver the history in chat
 
 Default to a concise but complete overview.
 
@@ -159,8 +182,9 @@ Use this structure unless the user asks for something narrower:
 1. `Deal snapshot`
 2. `Chain overview`
 3. `Timeline of changes`
-4. `Current operative position`
-5. `Confidence and gaps`
+4. `Clauses Resolved by Precedence` *(include only if Step 4 found a genuine conflict)*
+5. `Current operative position`
+6. `Confidence and gaps`
 
 Lead with the timeline and current effect, not the research process.
 
@@ -171,8 +195,9 @@ Use this structure in chat unless the user asks for a different format:
 1. `Deal snapshot`: identify the agreement or deal, what kind of paper it is, and what question the history is answering
 2. `Chain overview`: base agreement plus the count and order of later amendments or addenda
 3. `Timeline of changes`: one compact block per chain step
-4. `Current operative position`: what the paper appears to say now after applying later changes
-5. `Confidence and gaps`: what is well-supported, what needed text confirmation, and what may require manual review
+4. `Clauses Resolved by Precedence` *(optional — include only if a genuine clause conflict was found in Step 4)*: for each conflict, name both documents and their operative language, state which controls and on what basis (by `precedence_rank` for amendments; by the governing stack's order-of-precedence clause for document-type conflicts; by explicit override text when present), and state the practical effect. Omit this section entirely if no genuine conflicts were found — do not include a "no conflicts" placeholder.
+5. `Current operative position`: what the paper appears to say now after applying the lowest `precedence_rank` terms (rank 1 controls)
+6. `Confidence and gaps`: what is well-supported, what needed text confirmation, and what may require manual review
 
 For each chain step, prefer a compact block with:
 
@@ -192,8 +217,12 @@ Before finalizing the answer, confirm:
 - the chronology is clear and in order
 - legal amendment history is not mixed up with file revision history
 - each timeline step says what changed and what remained operative
+- the governing stack was scanned for clause conflicts (Step 4 always runs)
+- if a genuine conflict was found, the controlling document is identified and the basis is explained; if none was found, the `Clauses Resolved by Precedence` section is omitted entirely
+- no non-conflicts appear in the output under any label — not "for completeness", not as a separate subsection
+- no tool names, database field names, agreement IDs, deal IDs, or other technical artifacts appear anywhere in the output
 - material conclusions are tied to source text when needed
-- the current operative position is stated clearly
+- the current operative position reflects the lowest `precedence_rank` terms (rank 1 controls), not a lower-priority document's values
 - evidence status is explicit
 - ambiguity or chain gaps are called out instead of hidden
 
