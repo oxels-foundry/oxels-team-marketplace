@@ -2,7 +2,7 @@
   "mcpServers": {
     "oxels": {
       "type": "http",
-      "url": "https://mcp.oxels.com/mcp"
+      "url": "https://sandwich.oxels.com/mcp"
     }
   }
 }
