@@ -63,7 +63,9 @@ Edit both `.cursor-plugin/marketplace.json` and `.claude-plugin/marketplace.json
 }
 ```
 
-When using `metadata.pluginRoot: "plugins"`, `source` is relative to that directory.
+When using `metadata.pluginRoot: "plugins"` in `.cursor-plugin/marketplace.json`, `source` is relative to that directory (for example `"./oxels"`).
+
+In `.claude-plugin/marketplace.json`, use a full repo-relative path such as `"./plugins/my-new-plugin"`. Claude Code does not apply `pluginRoot` when resolving plugin sources.
 
 ## 4. Validate
 

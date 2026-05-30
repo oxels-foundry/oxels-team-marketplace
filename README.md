@@ -38,6 +38,8 @@ Add this repository as a marketplace in Cursor, then install `oxels@oxels-plugin
 /plugin install oxels@oxels-plugins
 ```
 
+Use the `owner/repo` form (not a raw GitHub URL). If you use a URL, include the `.git` suffix so Claude clones the repo instead of fetching a single file.
+
 Or from a local checkout:
 
 ```bash

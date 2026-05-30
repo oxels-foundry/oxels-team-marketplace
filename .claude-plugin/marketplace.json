@@ -6,13 +6,12 @@
   },
   "metadata": {
     "description": "Query data in the Oxels warehouse",
-    "version": "0.1.0",
-    "pluginRoot": "plugins"
+    "version": "0.1.0"
   },
   "plugins": [
     {
       "name": "oxels",
-      "source": "./oxels",
+      "source": "./plugins/oxels",
       "description": "Query data in the Oxels warehouse"
     }
   ]
