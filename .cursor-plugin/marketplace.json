@@ -5,7 +5,7 @@
     "email": "team@oxels.com"
   },
   "metadata": {
-    "description": "A set of Oxels plugins.",
+    "description": "Query data in the Oxels warehouse",
     "version": "0.1.0",
     "pluginRoot": "plugins"
   },
@@ -13,7 +13,7 @@
     {
       "name": "oxels",
       "source": "./oxels",
-      "description": "Query and triage contracts for legal, accounting and rev-ops work."
+      "description": "Query data in the Oxels warehouse"
     }
   ]
 }
