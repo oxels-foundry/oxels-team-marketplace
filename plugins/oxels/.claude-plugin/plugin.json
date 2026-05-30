@@ -1,5 +1,6 @@
 {
   "name": "oxels",
+  "displayName": "Oxels Contract Intelligence",
   "version": "0.1.0",
   "description": "Oxels contract intelligence plugin with MCP-backed contract analysis skills and guidance.",
   "author": {
@@ -15,8 +16,6 @@
     "agent-skills",
     "legalops"
   ],
-  "logo": "./assets/logo.png",
   "skills": "./skills",
-  "rules": "./rules",
   "mcpServers": "./mcp.json"
 }

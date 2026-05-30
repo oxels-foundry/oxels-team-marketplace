@@ -1,24 +1,25 @@
 #!/usr/bin/env bash
 #
-# Oxels Contract Intelligence - Cursor plugin installer
+# Oxels Contract Intelligence - Cursor and Claude Code plugin installer
 #
-# Installs the Oxels Contract Intelligence plugin as a local Cursor plugin
-# at ~/.cursor/plugins/local/oxels-contract-intelligence. Delivers the same
-# contents as installing via the Cursor marketplace: skills, rules, MCP
-# server config, and assets.
+# Installs the Oxels plugin from this marketplace for Cursor and/or Claude Code.
 #
 # Usage:
 #   curl -sSL https://mcp.oxels.com/install | bash
 #
 # Env overrides:
-#   OXELS_PLUGINS_DIR   Cursor local plugins dir (default: ~/.cursor/plugins/local)
-#   OXELS_BRANCH        Branch to install from  (default: main)
+#   OXELS_TARGET           Install target: cursor, claude, or both (default: both)
+#   OXELS_PLUGINS_DIR      Cursor local plugins dir (default: ~/.cursor/plugins/local)
+#   OXELS_BRANCH           Branch to install from (default: main)
+#   OXELS_REPO             GitHub repo slug (default: oxels-foundry/oxels-team-marketplace)
 #
 set -euo pipefail
 
-REPO="oxels-foundry/oxels-team-marketplace"
+REPO="${OXELS_REPO:-oxels-foundry/oxels-team-marketplace}"
 BRANCH="${OXELS_BRANCH:-main}"
-PLUGIN="oxels-contract-intelligence"
+PLUGIN="oxels"
+MARKETPLACE="oxels-plugins"
+TARGET="${OXELS_TARGET:-both}"
 PLUGINS_DIR="${OXELS_PLUGINS_DIR:-$HOME/.cursor/plugins/local}"
 DEST="$PLUGINS_DIR/$PLUGIN"
 
@@ -28,8 +29,13 @@ err() { printf 'Error: %s\n' "$*" >&2; }
 command -v curl >/dev/null 2>&1 || { err "curl is required"; exit 1; }
 command -v tar  >/dev/null 2>&1 || { err "tar is required";  exit 1; }
 
-log "Installing Oxels Contract Intelligence plugin to $DEST"
-mkdir -p "$PLUGINS_DIR"
+case "$TARGET" in
+  cursor|claude|both) ;;
+  *)
+    err "OXELS_TARGET must be cursor, claude, or both"
+    exit 1
+    ;;
+esac
 
 TMPDIR="$(mktemp -d)"
 trap 'rm -rf "$TMPDIR"' EXIT
@@ -47,13 +53,39 @@ if [ ! -d "$SRC" ]; then
   exit 1
 fi
 
-log "Installing plugin files..."
-rm -rf "$DEST"
-cp -R "$SRC" "$DEST"
+install_cursor() {
+  log "Installing Oxels plugin for Cursor to $DEST"
+  mkdir -p "$PLUGINS_DIR"
+  rm -rf "$DEST"
+  cp -R "$SRC" "$DEST"
+  log "Cursor plugin installed at $DEST"
+  log "Restart Cursor to load the plugin."
+}
 
-log ""
-log "Done. Plugin installed at $DEST"
-log "Contents:"
-ls -1 "$DEST" | sed 's/^/  /'
-log ""
-log "Restart Cursor to load the plugin."
+install_claude() {
+  if ! command -v claude >/dev/null 2>&1; then
+    err "Claude Code CLI not found. Install it from https://code.claude.com/docs/en/setup"
+    exit 1
+  fi
+
+  log "Registering Oxels marketplace for Claude Code..."
+  claude plugin marketplace add "https://github.com/${REPO}.git#${BRANCH}"
+
+  log "Installing ${PLUGIN}@${MARKETPLACE}..."
+  claude plugin install "${PLUGIN}@${MARKETPLACE}"
+
+  log "Claude Code plugin installed."
+  log "Restart Claude Code, then try a skill such as /${PLUGIN}:oxels-review-contract"
+}
+
+if [ "$TARGET" = "cursor" ] || [ "$TARGET" = "both" ]; then
+  install_cursor
+  log ""
+fi
+
+if [ "$TARGET" = "claude" ] || [ "$TARGET" = "both" ]; then
+  install_claude
+  log ""
+fi
+
+log "Done."

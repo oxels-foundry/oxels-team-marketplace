@@ -247,113 +247,120 @@ function resolveMarketplaceSource(source, pluginRoot) {
   return `${normalizedRoot}/${normalizedSource}`;
 }
 
-async function main() {
-  const marketplacePath = path.join(repoRoot, ".cursor-plugin", "marketplace.json");
-  const marketplace = await readJsonFile(marketplacePath, "Marketplace manifest");
+async function validateMarketplace(manifestDir, label) {
+  const marketplacePath = path.join(repoRoot, manifestDir, "marketplace.json");
+  const marketplace = await readJsonFile(marketplacePath, `${label} marketplace manifest`);
   if (!marketplace) {
-    summarizeAndExit();
     return;
   }
 
   if (typeof marketplace.name !== "string" || !marketplaceNamePattern.test(marketplace.name)) {
     addError(
-      'Marketplace "name" must be lowercase kebab-case and start/end with an alphanumeric character.'
+      `${label}: "name" must be lowercase kebab-case and start/end with an alphanumeric character.`
     );
   }
 
   if (!marketplace.owner || typeof marketplace.owner.name !== "string" || marketplace.owner.name.length === 0) {
-    addError('Marketplace "owner.name" is required.');
+    addError(`${label}: "owner.name" is required.`);
   }
 
   if (!Array.isArray(marketplace.plugins) || marketplace.plugins.length === 0) {
-    addError('Marketplace "plugins" must be a non-empty array.');
-    summarizeAndExit();
+    addError(`${label}: "plugins" must be a non-empty array.`);
     return;
   }
 
   const pluginRoot = marketplace.metadata?.pluginRoot;
   if (pluginRoot !== undefined) {
     if (typeof pluginRoot !== "string" || !isSafeRelativePath(pluginRoot)) {
-      addError('Marketplace "metadata.pluginRoot" must be a safe relative path.');
+      addError(`${label}: "metadata.pluginRoot" must be a safe relative path.`);
     } else {
       const pluginRootAbs = path.join(repoRoot, pluginRoot);
-      await ensureDirectory(pluginRootAbs, 'Marketplace "metadata.pluginRoot"');
+      await ensureDirectory(pluginRootAbs, `${label} "metadata.pluginRoot"`);
     }
   }
 
   const seenNames = new Set();
   for (const [index, entry] of marketplace.plugins.entries()) {
-    const label = `plugins[${index}]`;
+    const entryLabel = `${label} plugins[${index}]`;
 
     if (!entry || typeof entry !== "object") {
-      addError(`${label} must be an object.`);
+      addError(`${entryLabel} must be an object.`);
       continue;
     }
 
     if (typeof entry.name !== "string" || !pluginNamePattern.test(entry.name)) {
-      addError(`${label}.name must be lowercase and use only alphanumerics, hyphens, and periods.`);
+      addError(`${entryLabel}.name must be lowercase and use only alphanumerics, hyphens, and periods.`);
       continue;
     }
 
     if (seenNames.has(entry.name)) {
-      addError(`Duplicate plugin name in marketplace manifest: "${entry.name}"`);
+      addError(`${label}: duplicate plugin name in marketplace manifest: "${entry.name}"`);
     }
     seenNames.add(entry.name);
 
     const sourcePath = resolveMarketplaceSource(entry.source, pluginRoot ?? "");
     if (!sourcePath) {
-      addError(`${label}.source must be a string path.`);
+      addError(`${entryLabel}.source must be a string path.`);
       continue;
     }
     if (!isSafeRelativePath(sourcePath)) {
-      addError(`${label}.source is not a safe relative path: "${sourcePath}"`);
+      addError(`${entryLabel}.source is not a safe relative path: "${sourcePath}"`);
       continue;
     }
 
     const pluginDir = path.join(repoRoot, sourcePath);
-    const pluginDirExists = await ensureDirectory(pluginDir, `${label}.source`);
+    const pluginDirExists = await ensureDirectory(pluginDir, `${entryLabel}.source`);
     if (!pluginDirExists) {
       continue;
     }
 
-    const manifestPath = path.join(pluginDir, ".cursor-plugin", "plugin.json");
-    const pluginManifest = await readJsonFile(manifestPath, `${entry.name} plugin manifest`);
-    if (!pluginManifest) {
-      continue;
-    }
+    await validatePluginManifest(pluginDir, entry.name, manifestDir);
+  }
+}
 
-    if (typeof pluginManifest.name !== "string" || !pluginNamePattern.test(pluginManifest.name)) {
-      addError(
-        `${entry.name}: "name" in plugin.json must be lowercase and use only alphanumerics, hyphens, and periods.`
-      );
-    }
+async function validatePluginManifest(pluginDir, pluginName, manifestDir) {
+  const manifestPath = path.join(pluginDir, manifestDir, "plugin.json");
+  const pluginManifest = await readJsonFile(manifestPath, `${pluginName} plugin manifest (${manifestDir})`);
+  if (!pluginManifest) {
+    return;
+  }
 
-    if (pluginManifest.name && pluginManifest.name !== entry.name) {
-      addError(
-        `${entry.name}: marketplace entry name does not match plugin.json name ("${pluginManifest.name}").`
-      );
-    }
+  if (typeof pluginManifest.name !== "string" || !pluginNamePattern.test(pluginManifest.name)) {
+    addError(
+      `${pluginName}: "name" in ${manifestDir}/plugin.json must be lowercase and use only alphanumerics, hyphens, and periods.`
+    );
+  }
 
-    const manifestFields = ["logo", "rules", "skills", "agents", "commands", "hooks", "mcpServers"];
-    for (const field of manifestFields) {
-      const values = extractPathValues(pluginManifest[field]);
-      for (const value of values) {
-        await validateReferencedPath(pluginDir, field, value, entry.name);
-      }
-    }
+  if (pluginManifest.name && pluginManifest.name !== pluginName) {
+    addError(
+      `${pluginName}: marketplace entry name does not match ${manifestDir}/plugin.json name ("${pluginManifest.name}").`
+    );
+  }
 
-    await validateComponentFrontmatter(pluginDir, entry.name);
-
-    const hooksPath = path.join(pluginDir, "hooks", "hooks.json");
-    if (!(await pathExists(hooksPath))) {
-      addWarning(`${entry.name}: no hooks/hooks.json file found (only needed when using hooks).`);
-    }
-
-    const mcpPath = path.join(pluginDir, "mcp.json");
-    if (!(await pathExists(mcpPath))) {
-      addWarning(`${entry.name}: no mcp.json file found (only needed when using MCP servers).`);
+  const manifestFields = ["logo", "rules", "skills", "agents", "commands", "hooks", "mcpServers"];
+  for (const field of manifestFields) {
+    const values = extractPathValues(pluginManifest[field]);
+    for (const value of values) {
+      await validateReferencedPath(pluginDir, field, value, pluginName);
     }
   }
+
+  await validateComponentFrontmatter(pluginDir, pluginName);
+
+  const hooksPath = path.join(pluginDir, "hooks", "hooks.json");
+  if (!(await pathExists(hooksPath))) {
+    addWarning(`${pluginName}: no hooks/hooks.json file found (only needed when using hooks).`);
+  }
+
+  const mcpPath = path.join(pluginDir, "mcp.json");
+  if (!(await pathExists(mcpPath))) {
+    addWarning(`${pluginName}: no mcp.json file found (only needed when using MCP servers).`);
+  }
+}
+
+async function main() {
+  await validateMarketplace(".cursor-plugin", "Cursor marketplace");
+  await validateMarketplace(".claude-plugin", "Claude marketplace");
 
   summarizeAndExit();
 }
