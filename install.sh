@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Oxels Contract Intelligence - Cursor and Claude Code plugin installer
+# Oxels - Cursor and Claude Code plugin installer
 #
 # Installs the Oxels plugin from this marketplace for Cursor and/or Claude Code.
 #

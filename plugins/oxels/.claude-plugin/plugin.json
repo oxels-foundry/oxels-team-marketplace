@@ -1,8 +1,8 @@
 {
   "name": "oxels",
-  "displayName": "Oxels Contract Intelligence",
+  "displayName": "Oxels",
   "version": "0.1.0",
-  "description": "Oxels contract intelligence plugin with MCP-backed contract analysis skills and guidance.",
+  "description": "Oxels plugin with MCP-backed contract analysis skills and guidance.",
   "author": {
     "name": "Oxels"
   },

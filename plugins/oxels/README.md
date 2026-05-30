@@ -1,4 +1,4 @@
-# Oxels Contract Intelligence
+# Oxels
 
 Plugin for Oxels-backed contract analysis workflows:
 
