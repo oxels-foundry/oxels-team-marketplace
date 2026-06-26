@@ -9,7 +9,7 @@ metadata:
 
 **Plugin skill:** `oxels-update-skill`
 
-Meta workflow for patching live skill `body_md` through Oxels MCP (`get_object`, `run_sql`) .
+Meta workflow for patching a live skill's `body_md` in the Oxels catalog — load the current body, apply the user's edit, and persist the change.
 
 ## Before you proceed
 
