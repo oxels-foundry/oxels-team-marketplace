@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Driver schema: loads the W3C xml namespace schema from a local copy, then the
+     ECMA-376 transitional WordprocessingML schema, which imports that namespace
+     without a schemaLocation. Nothing in the ECMA files is modified. -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="w3c/xml.xsd"/>
+  <xsd:import namespace="http://schemas.openxmlformats.org/wordprocessingml/2006/main" schemaLocation="transitional/wml.xsd"/>
+</xsd:schema>
